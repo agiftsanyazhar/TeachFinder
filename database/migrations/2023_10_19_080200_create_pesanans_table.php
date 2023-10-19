@@ -21,7 +21,11 @@ return new class extends Migration
                 ->constrained('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->boolean('status');
+            $table->foreignId('jadwal_id')
+                ->constrained('jadwals')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->boolean('status')->default(0);
             $table->longText('description');
             $table->timestamps();
         });

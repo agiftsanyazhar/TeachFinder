@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('jadwals', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
+            $table->string('name');
             $table->foreignId('guru_id')
                 ->constrained('gurus')
                 ->onUpdate('cascade')
@@ -30,7 +30,8 @@ return new class extends Migration
                 ->constrained('jenjangs')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->string('waktu');
+            $table->string('waktu_mulai');
+            $table->string('waktu_akhir');
             $table->integer('harga');
             $table->timestamps();
         });

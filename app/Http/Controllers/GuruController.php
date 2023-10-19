@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Guru;
-use App\Http\Requests\StoreGuruRequest;
-use App\Http\Requests\UpdateGuruRequest;
+use Illuminate\Http\Request;
 
 class GuruController extends Controller
 {
@@ -13,21 +12,17 @@ class GuruController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $guru = Guru::with('lokasi', 'alamatGuru', 'user')->get();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return response()->json([
+            'data' => $guru,
+        ], 200);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreGuruRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -35,15 +30,7 @@ class GuruController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Guru $guru)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Guru $guru)
+    public function show(string $id)
     {
         //
     }
@@ -51,7 +38,7 @@ class GuruController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateGuruRequest $request, Guru $guru)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -59,7 +46,7 @@ class GuruController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Guru $guru)
+    public function destroy(string $id)
     {
         //
     }

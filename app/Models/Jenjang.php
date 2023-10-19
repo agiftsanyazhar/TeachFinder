@@ -21,4 +21,14 @@ class Jenjang extends Model
     {
         return $this->hasMany(Murid::class);
     }
+
+    /**
+     * Get all of the jadwal for the Jenjang
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function jadwal(): HasMany
+    {
+        return $this->hasMany(Jadwal::class);
+    }
 }

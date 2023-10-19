@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Murid;
-use App\Http\Requests\StoreMuridRequest;
-use App\Http\Requests\UpdateMuridRequest;
+use Illuminate\Http\Request;
 
 class MuridController extends Controller
 {
@@ -13,21 +12,17 @@ class MuridController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $murid = Murid::with('jenjang')->get();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return response()->json([
+            'data' => $murid,
+        ], 200);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreMuridRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -35,15 +30,7 @@ class MuridController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Murid $murid)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Murid $murid)
+    public function show(string $id)
     {
         //
     }
@@ -51,7 +38,7 @@ class MuridController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMuridRequest $request, Murid $murid)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -59,7 +46,7 @@ class MuridController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Murid $murid)
+    public function destroy(string $id)
     {
         //
     }

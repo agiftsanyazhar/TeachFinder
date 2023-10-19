@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Testimonial;
-use App\Http\Requests\StoreTestimonialRequest;
-use App\Http\Requests\UpdateTestimonialRequest;
+use Illuminate\Http\Request;
 
 class TestimonialController extends Controller
 {
@@ -13,21 +12,17 @@ class TestimonialController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $testimonial = Testimonial::with('pengirim', 'penerima')->get();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return response()->json([
+            'data' => $testimonial,
+        ], 200);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreTestimonialRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -35,15 +30,7 @@ class TestimonialController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Testimonial $testimonial)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Testimonial $testimonial)
+    public function show(string $id)
     {
         //
     }
@@ -51,7 +38,7 @@ class TestimonialController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateTestimonialRequest $request, Testimonial $testimonial)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -59,7 +46,7 @@ class TestimonialController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Testimonial $testimonial)
+    public function destroy(string $id)
     {
         //
     }

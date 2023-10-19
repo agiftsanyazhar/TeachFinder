@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jadwal;
-use App\Http\Requests\StoreJadwalRequest;
-use App\Http\Requests\UpdateJadwalRequest;
+use Illuminate\Http\Request;
 
 class JadwalController extends Controller
 {
@@ -13,21 +12,17 @@ class JadwalController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $jadwal = Jadwal::with('guru', 'hari', 'mataPelajaran', 'jenjang')->get();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return response()->json([
+            'data' => $jadwal,
+        ], 200);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreJadwalRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -35,15 +30,7 @@ class JadwalController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Jadwal $jadwal)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Jadwal $jadwal)
+    public function show(string $id)
     {
         //
     }
@@ -51,7 +38,7 @@ class JadwalController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateJadwalRequest $request, Jadwal $jadwal)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -59,7 +46,7 @@ class JadwalController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Jadwal $jadwal)
+    public function destroy(string $id)
     {
         //
     }

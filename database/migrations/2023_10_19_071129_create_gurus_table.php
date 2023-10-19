@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('phone');
+            $table->boolean('is_active')->default(0);
             $table->foreignId('lokasi_id')
                 ->constrained('lokasis')
                 ->onUpdate('cascade')

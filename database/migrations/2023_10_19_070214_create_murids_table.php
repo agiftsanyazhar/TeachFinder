@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('phone')->nullable();
-            $table->string('pin');
+            $table->integer('pin');
             $table->foreignId('jenjang_id')
                 ->constrained('jenjangs')
                 ->onUpdate('cascade')

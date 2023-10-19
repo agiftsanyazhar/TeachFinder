@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Jenjang;
 use Illuminate\Database\Seeder;
 
 class JenjangSeeder extends Seeder
@@ -12,6 +12,14 @@ class JenjangSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        $jenjang = [
+            ['name' => 'SD'],
+            ['name' => 'SMP'],
+            ['name' => 'SMA'],
+        ];
+
+        foreach ($jenjang as $item) {
+            Jenjang::create($item);
+        }
     }
 }

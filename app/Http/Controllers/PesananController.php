@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pesanan;
-use App\Http\Requests\StorePesananRequest;
-use App\Http\Requests\UpdatePesananRequest;
+use Illuminate\Http\Request;
 
 class PesananController extends Controller
 {
@@ -13,21 +12,17 @@ class PesananController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $pesanan = Pesanan::with('murid', 'guru', 'jadwal')->get();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return response()->json([
+            'data' => $pesanan,
+        ], 200);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePesananRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -35,15 +30,7 @@ class PesananController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Pesanan $pesanan)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Pesanan $pesanan)
+    public function show(string $id)
     {
         //
     }
@@ -51,7 +38,7 @@ class PesananController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePesananRequest $request, Pesanan $pesanan)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -59,7 +46,7 @@ class PesananController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Pesanan $pesanan)
+    public function destroy(string $id)
     {
         //
     }

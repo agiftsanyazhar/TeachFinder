@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Pesanan;
 use Illuminate\Database\Seeder;
 
 class PesananSeeder extends Seeder
@@ -12,6 +12,32 @@ class PesananSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        $pesanan = [
+            [
+                'murid_id' => 1,
+                'guru_id' => 1,
+                'jadwal_id' => 1,
+                'status' => 1,
+                'description' => 'Okee. Berang berang makan coklat. Brangkatt...',
+            ],
+            [
+                'murid_id' => 2,
+                'guru_id' => 2,
+                'jadwal_id' => 2,
+                'status' => 0,
+                'description' => 'Lokasi?',
+            ],
+            [
+                'murid_id' => 3,
+                'guru_id' => 3,
+                'jadwal_id' => 3,
+                'status' => 1,
+                'description' => 'Okee. Berang berang makan coklat. Brangkatt...',
+            ],
+        ];
+
+        foreach ($pesanan as $item) {
+            Pesanan::create($item);
+        }
     }
 }

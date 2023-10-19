@@ -31,4 +31,14 @@ class Pesanan extends Model
     {
         return $this->belongsTo(Guru::class);
     }
+
+    /**
+     * Get the jadwal that owns the Pesanan
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function jadwal(): BelongsTo
+    {
+        return $this->belongsTo(Jadwal::class);
+    }
 }
