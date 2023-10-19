@@ -12,13 +12,13 @@ class MataPelajaran extends Model
 
     protected $guarded = ['id'];
 
-    // /**
-    //  * Get all of the guru for the Matapelajaran
-    //  *
-    //  * @return \Illuminate\Database\Eloquent\Relations\HasMany
-    //  */
-    // public function guru(): HasMany
-    // {
-    //     return $this->hasMany(Guru::class);
-    // }
+    /**
+     * Get all of the guru for the Matapelajaran
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function guru(): HasMany
+    {
+        return $this->hasMany(Guru::class);
+    }
 }
