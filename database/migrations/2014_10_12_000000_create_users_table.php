@@ -24,13 +24,12 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->string('secret_token');
             $table->string('visible_token')->nullable();
-            $table->timestamp('last_login');
-            $table->timestamp('last_logout');
+            $table->timestamp('last_login')->nullable();
+            $table->timestamp('last_logout')->nullable();
             $table->string('secret_link');
-            $table->timestamp('secret_at');
+            $table->timestamp('secret_at')->nullable();
             $table->integer('secret_is_used')->default(0);
             $table->rememberToken();
-            $table->timestamps();
         });
     }
 
