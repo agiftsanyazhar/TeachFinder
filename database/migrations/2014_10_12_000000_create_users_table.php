@@ -15,8 +15,20 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->boolean('email_verified')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->foreignId('role_id')
+                ->constrained('roles')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->string('secret_token');
+            $table->string('visible_token')->nullable();
+            $table->timestamp('last_login');
+            $table->timestamp('last_logout');
+            $table->string('secret_link');
+            $table->timestamp('secret_at');
+            $table->integer('secret_is_used')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });
