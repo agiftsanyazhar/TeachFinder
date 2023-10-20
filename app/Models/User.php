@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\{
     BelongsTo,
     HasMany,
+    HasOne,
 };
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -25,6 +26,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'image',
     ];
 
     /**
@@ -62,9 +64,9 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function murid(): HasMany
+    public function murid(): HasOne
     {
-        return $this->hasMany(Murid::class);
+        return $this->hasOne(Murid::class);
     }
 
     /**
@@ -72,9 +74,9 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function guru(): HasMany
+    public function guru(): HasOne
     {
-        return $this->hasMany(Guru::class);
+        return $this->hasOne(Guru::class);
     }
 
     /**
@@ -95,5 +97,21 @@ class User extends Authenticatable
     public function testimonialPenerima(): HasMany
     {
         return $this->hasMany(Testimonial::class, 'penerima_id', 'id');
+    }
+
+    public function setImageAttribute($value)
+    {
+        $attributeName = 'image';
+        $destinationPath = public_path('uploads/users');
+
+        if (!file_exists($destinationPath)) {
+            mkdir($destinationPath, 0777, true);
+        }
+
+        if ($value) {
+            $image_name = time() . '.' . $value->getClientOriginalExtension();
+            $value->move($destinationPath, $image_name);
+            $this->attributes[$attributeName] = $destinationPath . '/' . $image_name;
+        }
     }
 }
