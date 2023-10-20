@@ -37,7 +37,7 @@ class JadwalController extends Controller
             $jadwal->join('gurus', 'gurus.id', '=', 'jadwals.guru_id')
                 ->where('gurus.lokasi_id', $lokasi_id);
         }
-        $jadwal->select('jadwals.*');
+        $jadwal->select('gurus.*', 'jadwals.*');
         $jadwalResults = $jadwal->get();
 
         return response()->json(['success' => true, 'message' => 'success', 'data' => $jadwalResults]);
