@@ -1,0 +1,4 @@
+1. api login user or guru
+2. api register user
+3. model user(buat fungsi auto generate path untuk save image user, mengganti hasMany user->guru dan user->siswa menjadi hasOne[dikarenakan dibuat pas awal berbarengan.])
+4. migration user(timestamp di aku gabisa dimigrate kalo ga tentukan not null or useCurrent)
