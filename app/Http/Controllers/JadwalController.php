@@ -41,8 +41,13 @@ class JadwalController extends Controller
 
         $jadwal->select('gurus.*', 'jadwals.*', 'gurus.name as guru_name');
         $jadwalResults = $jadwal->get();
-
-        return response()->json(['success' => true, 'message' => 'success', 'data' => $jadwalResults]);
+        if ($jadwalResults) {
+            // dd($jadwalResults);
+            // die;
+            return response()->json(['success' => true, 'message' => 'success', 'data' => $jadwalResults]);
+        } else {
+            return response()->json(['success' => true, 'message' => 'jadwal undefined with your filter', 'data' => $jadwalResults]);
+        }
     }
 
 

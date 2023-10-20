@@ -51,8 +51,24 @@ class GuruController extends Controller
         }
         $guru->lokasi_id = $lokasi_id;
 
-        if ($request->hasFile('skl_ijazah')) {
-            $guru->skl_ijazah = $request->file('skl_ijazah');
+        if (isset($value['skl_ijazah']) && $value['skl_ijazah'] instanceof \Illuminate\Http\UploadedFile) {
+            $file = $value['skl_ijazah'];
+            $gurusPath = public_path('uploads');
+            $destinationPath = $gurusPath . '/gurus/skl_ijazah';
+
+            if (!file_exists($gurusPath)) {
+                mkdir($gurusPath, 0777, true);
+            }
+
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0777, true);
+            }
+
+            if ($value) {
+                $image_name = time() . '.' . $file->getClientOriginalExtension();
+                $file->move($destinationPath, $image_name);
+                $guru->skl_ijazah = $destinationPath . '/' . $image_name;
+            }
         }
 
         if ($user->guru()->save($guru)) {
