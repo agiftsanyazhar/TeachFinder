@@ -16,4 +16,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('jadwal')->name('jadwal.')->group(function () {
     Route::get('/', [JadwalController::class, 'index'])->name('index');
+    Route::get('/filter-jadwal', [JadwalController::class, 'jadwalFilter'])->name('jadwalFilter');
 });

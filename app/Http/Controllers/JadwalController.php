@@ -19,6 +19,31 @@ class JadwalController extends Controller
         ], 200);
     }
 
+    public function jadwalFilter(Request $request)
+    {
+        $jadwal = Jadwal::query();
+        if ($request->has('mata_pelajaran_id')) {
+            $mata_pelajaran_id = $request->input('mata_pelajaran_id');
+            $jadwal->where('mata_pelajaran_id', $mata_pelajaran_id)
+                ->join('gurus', 'gurus.id', '=', 'jadwals.guru_id');
+        }
+        if ($request->has('jenjang_id')) {
+            $jenjang_id = $request->input('jenjang_id');
+            $jadwal->where('jenjang_id', $jenjang_id)
+                ->join('gurus', 'gurus.id', '=', 'jadwals.guru_id');
+        }
+        if ($request->has('lokasi_id')) {
+            $lokasi_id = $request->input('lokasi_id');
+            $jadwal->join('gurus', 'gurus.id', '=', 'jadwals.guru_id')
+                ->where('gurus.lokasi_id', $lokasi_id);
+        }
+        $jadwal->select('jadwals.*');
+        $jadwalResults = $jadwal->get();
+
+        return response()->json(['success' => true, 'message' => 'success', 'data' => $jadwalResults]);
+    }
+
+
     /**
      * Store a newly created resource in storage.
      */

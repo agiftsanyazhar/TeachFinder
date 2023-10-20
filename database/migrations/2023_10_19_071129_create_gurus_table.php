@@ -21,14 +21,6 @@ return new class extends Migration
                 ->constrained('lokasis')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreignId('mata_pelajaran_id')
-                ->constrained('mata_pelajarans')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-            $table->foreignId('jenjang_id')
-                ->constrained('jenjangs')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
             $table->string('skl_ijazah');
             $table->foreignId('user_id')
                 ->constrained('users')

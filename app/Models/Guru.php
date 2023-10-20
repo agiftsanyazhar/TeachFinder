@@ -28,16 +28,6 @@ class Guru extends Model
         return $this->belongsTo(Lokasi::class);
     }
 
-    public function mataPelajaran(): BelongsTo
-    {
-        return $this->belongsTo(MataPelajaran::class);
-    }
-
-    public function jenjang(): BelongsTo
-    {
-        return $this->belongsTo(Jenjang::class);
-    }
-
     /**
      * Get the user that owns the Guru
      *
