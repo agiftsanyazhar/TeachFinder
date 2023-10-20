@@ -14,6 +14,9 @@ class Guru extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+    protected $fillable = [
+        'skl_ijazah',
+    ];
 
     /**
      * Get the lokasi that owns the Guru
@@ -23,6 +26,16 @@ class Guru extends Model
     public function lokasi(): BelongsTo
     {
         return $this->belongsTo(Lokasi::class);
+    }
+
+    public function mataPelajaran(): BelongsTo
+    {
+        return $this->belongsTo(MataPelajaran::class);
+    }
+
+    public function jenjang(): BelongsTo
+    {
+        return $this->belongsTo(Jenjang::class);
     }
 
     /**
@@ -63,5 +76,21 @@ class Guru extends Model
     public function pesanan(): HasMany
     {
         return $this->hasMany(Pesanan::class);
+    }
+
+    public function setImageAttribute($value)
+    {
+        $attributeName = 'skl_ijazah';
+        $destinationPath = public_path('uploads/gurus/skl_ijazah');
+
+        if (!file_exists($destinationPath)) {
+            mkdir($destinationPath, 0777, true);
+        }
+
+        if ($value) {
+            $image_name = time() . '.' . $value->getClientOriginalExtension();
+            $value->move($destinationPath, $image_name);
+            $this->attributes[$attributeName] = $destinationPath . '/' . $image_name;
+        }
     }
 }

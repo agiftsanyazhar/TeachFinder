@@ -18,7 +18,9 @@ class GuruSeeder extends Seeder
                 'email' => 'guru1@gmail.com',
                 'phone' => '6283193049563',
                 'lokasi_id' => 1,
-                'skl_ijazah' => 'uploads/user-images/guru/ijazah1.jpg',
+                'mata_pelajaran_id' => 1,
+                'jenjang_id' => 1,
+                'skl_ijazah' => 'uploads/guru/ijazah1.jpg',
                 'user_id' => 2,
             ],
             [
@@ -26,7 +28,9 @@ class GuruSeeder extends Seeder
                 'email' => 'guru2@gmail.com',
                 'phone' => '6283193394201',
                 'lokasi_id' => 2,
-                'skl_ijazah' => 'uploads/user-images/guru/ijazah2.jpg',
+                'mata_pelajaran_id' => 2,
+                'jenjang_id' => 2,
+                'skl_ijazah' => 'uploads/guru/ijazah2.jpg',
                 'user_id' => 3,
             ],
             [
@@ -34,7 +38,9 @@ class GuruSeeder extends Seeder
                 'email' => 'guru3@gmail.com',
                 'phone' => '6283193192831',
                 'lokasi_id' => 3,
-                'skl_ijazah' => 'uploads/user-images/guru/ijazah3.jpg',
+                'mata_pelajaran_id' => 3,
+                'jenjang_id' => 3,
+                'skl_ijazah' => 'uploads/guru/ijazah3.jpg',
                 'user_id' => 4,
             ],
         ];
