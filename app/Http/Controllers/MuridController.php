@@ -32,20 +32,18 @@ class MuridController extends Controller
 
         $murid->phone = ($value['phone']) ?? '';
         if ($murid->phone == '') {
-            return response()->json(['success' => false, 'message' => 'No Telp tidak boleh kosong', 'data' => null]);
+            return response()->json(['success' => false, 'message' => 'Telepon tidak boleh kosong.', 'data' => null]);
         }
 
         $check = Murid::where('phone', $murid->phone)->first();
         if ($check != null) {
-            return response()->json(['success' => false, 'message' => 'No Telp telah digunakan', 'data' => null]);
+            return response()->json(['success' => false, 'message' => 'Telepon telah digunakan.', 'data' => null]);
         }
 
         $murid->pin = $value['pin'];
         $jenjang = Jenjang::find($value['jenjang_id']);
         if ($jenjang) {
             $jenjang_id = $jenjang->id;
-        } else {
-            // Lakukan penanganan jika $jenjang tidak ditemukan
         }
         $murid->jenjang_id = $jenjang_id;
         $murid->alamat = $value['alamat'];
@@ -54,13 +52,13 @@ class MuridController extends Controller
             return response()->json(
                 [
                     'success' => true,
-                    'message' => 'success',
+                    'message' => 'Success.',
                     'User' => $user,
                     'Murid' => $murid
                 ]
             );
         } else {
-            return response()->json(['success' => false, 'message' => 'gagal', 'data' => $user->errors()]);
+            return response()->json(['success' => false, 'message' => 'Gagal.', 'data' => $user->errors()]);
         }
     }
 

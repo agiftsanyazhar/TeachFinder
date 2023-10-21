@@ -32,12 +32,12 @@ class GuruController extends Controller
 
         $guru->phone = ($value['phone']) ?? '';
         if ($guru->phone == '') {
-            return response()->json(['success' => false, 'message' => 'No Telp tidak boleh kosong', 'data' => null]);
+            return response()->json(['success' => false, 'message' => 'Telepon tidak boleh kosong.', 'data' => null]);
         }
 
         $check = Guru::where('phone', $guru->phone)->first();
         if ($check != null) {
-            return response()->json(['success' => false, 'message' => 'No Telp telah digunakan', 'data' => null]);
+            return response()->json(['success' => false, 'message' => 'Telepon telah digunakan.', 'data' => null]);
         }
 
         $guru->is_active = 0;
@@ -47,7 +47,7 @@ class GuruController extends Controller
         if ($lokasi) {
             $lokasi_id = $lokasi->id;
         } else {
-            return response()->json(['success' => false, 'message' => 'tidak ditemukan lokasi yang tersedia', 'data' => null]);
+            return response()->json(['success' => false, 'message' => 'Lokasi tidak tersedia.', 'data' => null]);
         }
         $guru->lokasi_id = $lokasi_id;
 
@@ -75,18 +75,18 @@ class GuruController extends Controller
             return response()->json(
                 [
                     'success' => true,
-                    'message' => 'success',
+                    'message' => 'Success',
                     'User' => $user,
                     'Guru' => $guru
                 ]
             );
         } else {
-            return response()->json(['success' => false, 'message' => 'gagal', 'data' => $user->errors()]);
+            return response()->json(['success' => false, 'message' => 'Gagal.', 'data' => $user->errors()]);
         }
     }
-    public function GuruFilter(Request $request)
-    {
 
+    public function filterGuru(Request $request)
+    {
         $guru = Guru::query();
         if ($request->has('mata_pelajaran_id')) {
             $mata_pelajaran_id = $request->input('mata_pelajaran_id');
@@ -113,7 +113,7 @@ class GuruController extends Controller
         $guru->select('gurus.*', 'jadwals.*', 'gurus.name as guru_name');
         $guruResults = $guru->get();
 
-        return response()->json(['success' => true, 'message' => 'success', 'data' => $guruResults]);
+        return response()->json(['success' => true, 'message' => 'Success.', 'data' => $guruResults]);
     }
     /**
      * Display the specified resource.
@@ -137,5 +137,10 @@ class GuruController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function getRating()
+    {
+        // 
     }
 }

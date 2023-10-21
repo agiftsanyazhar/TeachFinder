@@ -12,7 +12,7 @@ class LokasiController extends Controller
      */
     public function index()
     {
-        $lokasi = Lokasi::get();
+        $lokasi = Lokasi::orderBy('name')->get();
 
         return response()->json([
             'data' => $lokasi,

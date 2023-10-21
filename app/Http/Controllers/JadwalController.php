@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Jadwal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\{
+    Auth,
+    DB,
+    Log,
+};
 
 class JadwalController extends Controller
 {
@@ -19,10 +24,9 @@ class JadwalController extends Controller
         ], 200);
     }
 
-    public function jadwalFilter(Request $request)
+    public function filterJadwal(Request $request)
     {
-        $jadwal = Jadwal::query();
-        $jadwal->join('gurus', 'gurus.id', '=', 'jadwals.guru_id');
+        $jadwal = Jadwal::with('guru', 'hari', 'mataPelajaran', 'jenjang');
 
         if ($request->has('mata_pelajaran_id')) {
             $mata_pelajaran_id = $request->input('mata_pelajaran_id');
@@ -36,28 +40,58 @@ class JadwalController extends Controller
 
         if ($request->has('lokasi_id')) {
             $lokasi_id = $request->input('lokasi_id');
-            $jadwal->where('gurus.lokasi_id', $lokasi_id);
+            $jadwal->whereHas('guru', function ($query) use ($lokasi_id) {
+                $query->where('lokasi_id', $lokasi_id);
+            });
         }
 
-        $jadwal->select('gurus.*', 'jadwals.*', 'gurus.name as guru_name');
         $jadwalResults = $jadwal->get();
-        if ($jadwalResults) {
-            // dd($jadwalResults);
-            // die;
+
+        if ($jadwalResults->isNotEmpty()) {
             return response()->json(['success' => true, 'message' => 'success', 'data' => $jadwalResults]);
         } else {
-            return response()->json(['success' => true, 'message' => 'jadwal undefined with your filter', 'data' => $jadwalResults]);
+            return response()->json(['success' => true, 'message' => 'Jadwal not found with your filter', 'data' => $jadwalResults]);
         }
     }
-
-
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->only([
+            'name', 'guru_id', 'hari_id', 'mata_pelajaran_id',
+            'jenjang_id', 'waktu_mulai', 'waktu_akhir', 'harga'
+        ]);
+
+        // $data['guru_id'] = Auth::user()->guru->id;
+
+        try {
+            $request->validate([
+                'waktu_mulai' => 'required|string',
+                'waktu_akhir' => 'required|string',
+                'harga' => 'required|integer',
+            ]);
+
+
+            Jadwal::create($data);
+
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => 'Success.',
+                    'jadwal' => $data,
+                ]
+            );
+        } catch (\Exception $e) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Gagal. ' . $e->getMessage(),
+                ]
+            );
+            Log::debug($e->getMessage());
+        }
     }
 
     /**
@@ -71,16 +105,66 @@ class JadwalController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $jadwal = Jadwal::findOrFail($id);
+        $data = $request->only([
+            'name', 'guru_id', 'hari_id', 'mata_pelajaran_id',
+            'jenjang_id', 'waktu_mulai', 'waktu_akhir', 'harga'
+        ]);
+
+        try {
+            $request->validate([
+                'waktu_mulai' => 'required|string',
+                'waktu_akhir' => 'required|string',
+                'harga' => 'required|integer',
+            ]);
+
+            $jadwal->update($data);
+
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => 'Success.',
+                    'jadwal' => $data,
+                ]
+            );
+        } catch (\Exception $e) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Gagal. ' . $e->getMessage(),
+                ]
+            );
+            Log::debug($e->getMessage());
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        try {
+            $jadwal = Jadwal::findOrFail($id);
+
+            $jadwal->delete();
+
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => 'Success.',
+                ]
+            );
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Gagal. ' . $e->getMessage(),
+                ]
+            );
+            Log::debug($e->getMessage());
+        }
     }
 }

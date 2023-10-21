@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Pesanan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\{
+    DB,
+    Log,
+};
 
 class PesananController extends Controller
 {
@@ -12,7 +16,9 @@ class PesananController extends Controller
      */
     public function index()
     {
-        $pesanan = Pesanan::with('murid', 'guru', 'jadwal')->get();
+        $pesanan = Pesanan::with('murid', 'guru', 'jadwal')
+            ->orderBy('created_at')
+            ->get();
 
         return response()->json([
             'data' => $pesanan,
@@ -24,7 +30,29 @@ class PesananController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->only([
+            'murid_id', 'guru_id', 'jadwal_id',
+        ]);
+
+        try {
+            Pesanan::create($data);
+
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => 'Success.',
+                    'pesanan' => $data,
+                ]
+            );
+        } catch (\Exception $e) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Gagal. ' . $e->getMessage(),
+                ]
+            );
+            Log::debug($e->getMessage());
+        }
     }
 
     /**
@@ -38,16 +66,36 @@ class PesananController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
-    }
+        $pesanan = Pesanan::findOrFail($id);
+        $data = $request->only([
+            'status', 'description',
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        try {
+            $request->validate([
+                'status' => 'required|integer',
+                'description' => 'required|string',
+            ]);
+
+            $pesanan->update($data);
+
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => 'Success.',
+                    'pesanan' => $data,
+                ]
+            );
+        } catch (\Exception $e) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Gagal. ' . $e->getMessage(),
+                ]
+            );
+            Log::debug($e->getMessage());
+        }
     }
 }

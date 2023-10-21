@@ -12,7 +12,7 @@ class MataPelajaranController extends Controller
      */
     public function index()
     {
-        $mataPelajaran = MataPelajaran::get();
+        $mataPelajaran = MataPelajaran::orderBy('name')->get();
 
         return response()->json([
             'data' => $mataPelajaran,

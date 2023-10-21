@@ -16,5 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('jadwal')->name('jadwal.')->group(function () {
     Route::get('/', [JadwalController::class, 'index'])->name('index');
-    Route::get('/filter-jadwal', [JadwalController::class, 'jadwalFilter'])->name('jadwalFilter');
+    Route::get('/filter-jadwal', [JadwalController::class, 'filterJadwal'])->name('filter-jadwal');
+    Route::post('/store', [JadwalController::class, 'store'])->name('store');
+    Route::patch('/update/{id}', [JadwalController::class, 'update'])->name('update');
+    Route::delete('/destroy/{id}', [JadwalController::class, 'destroy'])->name('destroy');
 });

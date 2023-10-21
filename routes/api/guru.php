@@ -16,5 +16,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('guru')->name('guru.')->group(function () {
     Route::get('/', [GuruController::class, 'index'])->name('index');
-    Route::get('/filter-guru', [GuruController::class, 'GuruFilter'])->name('GuruFilter');
+    // Route::get('/filter-guru', [GuruController::class, 'filterGuru'])->name('filter-guru');
 });

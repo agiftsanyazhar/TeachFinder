@@ -16,4 +16,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('testimonial')->name('testimonial.')->group(function () {
     Route::get('/', [TestimonialController::class, 'index'])->name('index');
+    Route::post('/store', [TestimonialController::class, 'store'])->name('store');
+    Route::patch('/update/{id}', [TestimonialController::class, 'update'])->name('update');
 });

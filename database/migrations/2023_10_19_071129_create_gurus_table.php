@@ -21,7 +21,7 @@ return new class extends Migration
                 ->constrained('lokasis')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->string('skl_ijazah');
+            $table->string('skl_ijazah')->nullable();
             $table->foreignId('user_id')
                 ->constrained('users')
                 ->onUpdate('cascade')

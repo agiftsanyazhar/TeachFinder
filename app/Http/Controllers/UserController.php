@@ -33,7 +33,7 @@ class UserController extends Controller
         if (empty($email) || empty($password)) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Email & password tidak boleh kosong!',
+                'message' => 'Email & password tidak boleh kosong.',
                 'data' => ["email" => $email, "password" => $password]
             ], 401);
         } else {
@@ -44,7 +44,7 @@ class UserController extends Controller
                     if (Hash::check($password, $user->password)) {
                         if ($user->confirm == 0) {
                             $result["success"] = true;
-                            $result["message"] = "Akun anda belum aktif,Masukkan Kode OTP Anda terlebih dahulu untuk mengaktifkan";
+                            $result["message"] = "Akun anda belum aktif. Masukkan Kode OTP Anda terlebih dahulu untuk mengaktifkan.";
                             unset($user->password);
                             $result["user"] = $user;
                         } else {
@@ -53,23 +53,23 @@ class UserController extends Controller
                             $user->save();
 
                             $result['success'] = true;
-                            $result['message'] = "success login";
+                            $result['message'] = "Success login.";
                             unset($user->password);
                             $result["user"] = $user;
                         }
                     } else {
                         $result["success"] = false;
-                        $result["message"] = "password salah";
+                        $result["message"] = "Password salah.";
                         $result["user"] = null;
                     }
                 } else {
                     $result["success"] = false;
-                    $result["message"] = "email tidak ada";
+                    $result["message"] = "Email tidak ada.";
                     $result["user"] = null;
                 }
             } catch (\Exception $e) {
                 $result["success"] = false;
-                $result["message"] = "email atau password salah";
+                $result["message"] = "Email atau password salah.";
                 $result["user"] = $e->getMessage();
             }
         }
@@ -99,20 +99,20 @@ class UserController extends Controller
 
 
             if ($value['confirm_password'] != $value['password']) {
-                return response()->json(['success' => false, 'message' => 'Password tidak sama', 'data' => null]);
+                return response()->json(['success' => false, 'message' => 'Password tidak sama.', 'data' => null]);
             }
             if (strlen($value['password']) < 6) {
-                return response()->json(['success' => false, 'message' => 'Password minimal 6 karakter', 'data' => null]);
+                return response()->json(['success' => false, 'message' => 'Password minimal 6 karakter.', 'data' => null]);
             }
 
             if (!filter_var($user->email, FILTER_VALIDATE_EMAIL)) {
-                return response()->json(['success' => false, 'message' => 'email anda tidak valid', 'data' => null]);
+                return response()->json(['success' => false, 'message' => 'Email anda tidak valid.', 'data' => null]);
             }
 
             if ($user->email) {
                 $cek = User::where('email', $user->email)->first();
                 if ($cek != null) {
-                    return response()->json(['success' => false, 'message' => 'Email telah digunakan', 'data' => null]);
+                    return response()->json(['success' => false, 'message' => 'Email telah digunakan.', 'data' => null]);
                 }
             }
 
@@ -121,7 +121,7 @@ class UserController extends Controller
                 $muridController = new MuridController();
                 return $muridController->store($request, $user, $value);
             } else {
-                return response()->json(['success' => false, 'message' => 'gagal membuat akun', 'data' => null]);
+                return response()->json(['success' => false, 'message' => 'Gagal membuat akun.', 'data' => null]);
             }
         } else if ($value['role_id'] == 2) {
             $user = new User();
@@ -141,33 +141,31 @@ class UserController extends Controller
 
 
             if ($value['confirm_password'] != $value['password']) {
-                return response()->json(['success' => false, 'message' => 'Password tidak sama', 'data' => null]);
+                return response()->json(['success' => false, 'message' => 'Password tidak sama.', 'data' => null]);
             }
             if (strlen($value['password']) < 6) {
-                return response()->json(['success' => false, 'message' => 'Password minimal 6 karakter', 'data' => null]);
+                return response()->json(['success' => false, 'message' => 'Password minimal 6 karakter.', 'data' => null]);
             }
 
             if (!filter_var($user->email, FILTER_VALIDATE_EMAIL)) {
-                return response()->json(['success' => false, 'message' => 'email anda tidak valid', 'data' => null]);
+                return response()->json(['success' => false, 'message' => 'Email tidak valid.', 'data' => null]);
             }
 
             if ($user->email) {
                 $cek = User::where('email', $user->email)->first();
                 if ($cek != null) {
-                    return response()->json(['success' => false, 'message' => 'Email telah digunakan', 'data' => null]);
+                    return response()->json(['success' => false, 'message' => 'Email telah digunakan.', 'data' => null]);
                 }
             }
 
             if ($user->save()) {
-                // var_dump('halooo');
-                // die;
                 $guruController = new GuruController();
                 return $guruController->store($request, $user, $value);
             } else {
-                return response()->json(['success' => false, 'message' => 'gagal membuat akun', 'data' => null]);
+                return response()->json(['success' => false, 'message' => 'Gagal membuat akun.', 'data' => null]);
             }
         } else {
-            return response()->json(['success' => false, 'message' => 'role tidak ditemukan', 'data' => null]);
+            return response()->json(['success' => false, 'message' => 'Role tidak ditemukan.', 'data' => null]);
         }
     }
 }
