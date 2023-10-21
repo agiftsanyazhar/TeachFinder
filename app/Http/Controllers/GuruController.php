@@ -87,7 +87,7 @@ class GuruController extends Controller
 
     public function filterGuru(Request $request)
     {
-        $guru = Guru::with('jadwal');
+        $guru = Guru::with('jadwal', 'jadwal', 'alamatGuru', 'user');
 
         if ($request->has('mata_pelajaran_id')) {
             $mata_pelajaran_id = $request->input('mata_pelajaran_id');
