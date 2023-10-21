@@ -102,7 +102,12 @@ class User extends Authenticatable
     public function setImageAttribute($value)
     {
         $attributeName = 'image';
+        $defaultPath = public_path('uploads');
         $destinationPath = public_path('uploads/users');
+
+        if (!file_exists($defaultPath)) {
+            mkdir($defaultPath, 0777, true);
+        }
 
         if (!file_exists($destinationPath)) {
             mkdir($destinationPath, 0777, true);
