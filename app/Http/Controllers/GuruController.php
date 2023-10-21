@@ -13,7 +13,7 @@ class GuruController extends Controller
      */
     public function index()
     {
-        $guru = Guru::with('lokasi', 'alamatGuru', 'user')->get();
+        $guru = Guru::with('jadwal', 'lokasi', 'alamatGuru', 'user')->get();
 
         return response()->json([
             'data' => $guru,
@@ -87,34 +87,36 @@ class GuruController extends Controller
 
     public function filterGuru(Request $request)
     {
-        $guru = Guru::query();
+        $guru = Guru::with('jadwal');
+
         if ($request->has('mata_pelajaran_id')) {
             $mata_pelajaran_id = $request->input('mata_pelajaran_id');
-            $guru->join('jadwals', 'gurus.id', '=', 'jadwals.guru_id')->where('jadwals.mata_pelajaran_id', '=', $mata_pelajaran_id);
+            $guru->whereHas('jadwal', function ($query) use ($mata_pelajaran_id) {
+                $query->where('mata_pelajaran_id', $mata_pelajaran_id);
+            });
         }
-        if (request()->has('jenjang_id')) {
+
+        if ($request->has('jenjang_id')) {
             $jenjang_id = $request->input('jenjang_id');
-            $guru->where('jadwals.jenjang_id', '=', $jenjang_id);
+            $guru->whereHas('jadwal', function ($query) use ($jenjang_id) {
+                $query->where('jenjang_id', $jenjang_id);
+            });
         }
-        if (request()->has('lokasi_id')) {
+
+        if ($request->has('lokasi_id')) {
             $lokasi_id = $request->input('lokasi_id');
-            $guru->where('gurus.lokasi_id', '=', $lokasi_id);
+            $guru->where('lokasi_id', $lokasi_id);
         }
-        // if (request()->has('lokasi_id')) {
-        //     $lokasi_id = $request->input('lokasi_id');
-        //     $guru->where('lokasi_id', '=', $lokasi_id)
-        //         ->join('jadwals', 'gurus.id', '=', 'jadwals.guru_id')
-        //         ->select('gurus.*', 'jadwals.*', 'gurus.name as guru_name');
-        // }
-        // if (request()->has('mata_pelajaran_id') && !request()->has('jenjang_id') && !request()->has('lokasi_id')) {
-        //     $guru->join('jadwals', 'gurus.id', '=', 'jadwals.guru_id')
-        //         ->select('gurus.*', 'jadwals.*', 'gurus.name as guru_name');
-        // }
-        $guru->select('gurus.*', 'jadwals.*', 'gurus.name as guru_name');
+
         $guruResults = $guru->get();
 
-        return response()->json(['success' => true, 'message' => 'Success.', 'data' => $guruResults]);
+        if ($guruResults->isNotEmpty()) {
+            return response()->json(['success' => true, 'message' => 'success', 'data' => $guruResults]);
+        } else {
+            return response()->json(['success' => true, 'message' => 'Guru not found with your filter', 'data' => $guruResults]);
+        }
     }
+
     /**
      * Display the specified resource.
      */
