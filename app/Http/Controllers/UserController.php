@@ -24,6 +24,20 @@ class UserController extends Controller
             'data' => $user,
         ], 200);
     }
+
+    public function show(Request $request)
+    {
+        $user = $request->get('user');
+        if ($user) {
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => 'Success',
+                    'User' => $user,
+                ]
+            );
+        }
+    }
     public function login(Request $request)
     {
         $email = $request->input('email');

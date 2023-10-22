@@ -87,7 +87,7 @@ class GuruController extends Controller
 
     public function filterGuru(Request $request)
     {
-        $guru = Guru::with('jadwal', 'jadwal', 'alamatGuru', 'user');
+        $guru = Guru::with('jadwal', 'lokasi', 'alamatGuru', 'user');
 
         if ($request->has('mata_pelajaran_id')) {
             $mata_pelajaran_id = $request->input('mata_pelajaran_id');
@@ -108,21 +108,42 @@ class GuruController extends Controller
             $guru->where('lokasi_id', $lokasi_id);
         }
 
-        $guruResults = $guru->get();
 
-        if ($guruResults->isNotEmpty()) {
-            return response()->json(['success' => true, 'message' => 'success', 'data' => $guruResults]);
-        } else {
-            return response()->json(['success' => true, 'message' => 'Guru not found with your filter', 'data' => $guruResults]);
-        }
+
+        $guruResults = $guru->get();
+        $guru_data = $guruResults->map(function ($guru) {
+            $averagePrice = $guru->jadwal->avg('harga');
+            $nama_mata_pelajaran = $guru->jadwal->first()->mataPelajaran->name;  // Accessing mataPelajaran relationship
+            $guru->nama_mata_pelajaran = $nama_mata_pelajaran;
+            $ratingAverage = $guru->user->testimonialPenerima()->get()->avg('nilai');
+            $testimonials = $guru->user->testimonialPenerima()->get();
+            $guru->avgPrice = $averagePrice;
+            $guru->ratingAverage = $ratingAverage;
+            $guru->testimonials = $testimonials;
+            return $guru;
+        });
+
+        return response()->json(['success' => true, 'message' => 'Success', 'data' => $guru_data]);
     }
+
+
+
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        //
+        $guru = Guru::where('user_id', $id)
+            ->with('lokasi', 'user')
+            ->get();
+        if ($guru->isNotEmpty()) {
+            return response()->json([
+                'data' => $guru,
+            ], 200);
+        } else {
+            return response()->json(['success' => false, 'message' => 'tidak ditemukan guru dengan id = ' . $id, 'data' => null]);
+        }
     }
 
     /**
@@ -143,6 +164,6 @@ class GuruController extends Controller
 
     public function getRating()
     {
-        // 
+        //
     }
 }
