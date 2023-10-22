@@ -15,6 +15,8 @@ class MataPelajaranController extends Controller
         $mataPelajaran = MataPelajaran::orderBy('name')->get();
 
         return response()->json([
+            'success' => true,
+            'message' => 'Success',
             'data' => $mataPelajaran,
         ], 200);
     }

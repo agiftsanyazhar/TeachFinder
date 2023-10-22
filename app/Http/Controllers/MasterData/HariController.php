@@ -15,6 +15,8 @@ class HariController extends Controller
         $hari = Hari::get();
 
         return response()->json([
+            'success' => true,
+            'message' => 'Success',
             'data' => $hari,
         ], 200);
     }

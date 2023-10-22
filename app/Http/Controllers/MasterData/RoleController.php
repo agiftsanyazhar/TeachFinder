@@ -15,6 +15,8 @@ class RoleController extends Controller
         $role = Role::get();
 
         return response()->json([
+            'success' => true,
+            'message' => 'Success',
             'data' => $role,
         ], 200);
     }

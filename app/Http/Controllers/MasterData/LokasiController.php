@@ -15,6 +15,8 @@ class LokasiController extends Controller
         $lokasi = Lokasi::orderBy('name')->get();
 
         return response()->json([
+            'success' => true,
+            'message' => 'Success',
             'data' => $lokasi,
         ], 200);
     }

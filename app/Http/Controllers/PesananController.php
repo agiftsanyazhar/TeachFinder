@@ -21,6 +21,8 @@ class PesananController extends Controller
             ->get();
 
         return response()->json([
+            'success' => true,
+            'message' => 'Success',
             'data' => $pesanan,
         ], 200);
     }

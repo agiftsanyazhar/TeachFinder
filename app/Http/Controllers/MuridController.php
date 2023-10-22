@@ -16,6 +16,8 @@ class MuridController extends Controller
         $murid = Murid::with('jenjang')->get();
 
         return response()->json([
+            'success' => true,
+            'message' => 'Success',
             'data' => $murid,
         ], 200);
     }

@@ -17,6 +17,8 @@ class TestimonialController extends Controller
         $testimonial = Testimonial::with('pengirim', 'penerima')->orderBy('created_at', 'DESC')->get();
 
         return response()->json([
+            'success' => true,
+            'message' => 'Success',
             'data' => $testimonial,
         ], 200);
     }

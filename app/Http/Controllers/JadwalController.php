@@ -20,6 +20,8 @@ class JadwalController extends Controller
         $jadwal = Jadwal::with('guru', 'hari', 'mataPelajaran', 'jenjang')->get();
 
         return response()->json([
+            'success' => true,
+            'message' => 'Success',
             'data' => $jadwal,
         ], 200);
     }
@@ -73,7 +75,6 @@ class JadwalController extends Controller
                     'harga' => 'required|integer',
                 ]);
 
-
                 Jadwal::create($data);
 
                 return response()->json(
@@ -98,7 +99,6 @@ class JadwalController extends Controller
     /**
      * Display the specified resource.
      */
-
     public function show(string $id)
     {
         $jadwal = Jadwal::where('guru_id', $id)
@@ -107,13 +107,14 @@ class JadwalController extends Controller
 
         if ($jadwal->isNotEmpty()) {
             return response()->json([
+                'success' => true,
+                'message' => 'Success',
                 'data' => $jadwal,
             ], 200);
         } else {
             return response()->json(['success' => false, 'message' => 'Jadwal untuk guru dengan id=' . $id . ' kosong', 'data' => null]);
         }
     }
-
 
     /**
      * Update the specified resource in storage.

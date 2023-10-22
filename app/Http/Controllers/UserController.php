@@ -21,6 +21,8 @@ class UserController extends Controller
         $user = User::get();
 
         return response()->json([
+            'success' => true,
+            'message' => 'Success',
             'data' => $user,
         ], 200);
     }
@@ -56,7 +58,7 @@ class UserController extends Controller
 
                 if ($user) {
                     if (Hash::check($password, $user->password)) {
-                        if ($user->confirm == 0) {
+                        if ($user->email_verified == 0) {
                             $result["success"] = true;
                             $result["message"] = "Akun anda belum aktif. Masukkan Kode OTP Anda terlebih dahulu untuk mengaktifkan.";
                             unset($user->password);
@@ -92,7 +94,6 @@ class UserController extends Controller
 
     public function register(Request $request)
     {
-
         $value = $request->all();
 
         if ($value['role_id'] == 3) {
@@ -131,7 +132,6 @@ class UserController extends Controller
             }
 
             if ($user->save()) {
-
                 $muridController = new MuridController();
                 return $muridController->store($request, $user, $value);
             } else {
@@ -152,7 +152,6 @@ class UserController extends Controller
             $generate_random_string = Str::random(40); // Generate random string
             $user->secret_token = "TCF" . $generate_random_string;
             $user->secret_link = 'xraK1W82GFkbA0437Kfm7K86e7uI0h27SBi0N5A7';
-
 
             if ($value['confirm_password'] != $value['password']) {
                 return response()->json(['success' => false, 'message' => 'Password tidak sama.', 'data' => null]);

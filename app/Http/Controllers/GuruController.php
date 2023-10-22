@@ -16,6 +16,8 @@ class GuruController extends Controller
         $guru = Guru::with('jadwal', 'lokasi', 'alamatGuru', 'user')->get();
 
         return response()->json([
+            'success' => true,
+            'message' => 'Success',
             'data' => $guru,
         ], 200);
     }
@@ -76,8 +78,8 @@ class GuruController extends Controller
                 [
                     'success' => true,
                     'message' => 'Success',
-                    'User' => $user,
-                    'Guru' => $guru
+                    'user' => $user,
+                    'guru' => $guru
                 ]
             );
         } else {
@@ -108,8 +110,6 @@ class GuruController extends Controller
             $guru->where('lokasi_id', $lokasi_id);
         }
 
-
-
         $guruResults = $guru->get();
         $guru_data = $guruResults->map(function ($guru) {
             $averagePrice = $guru->jadwal->avg('harga');
@@ -126,9 +126,6 @@ class GuruController extends Controller
         return response()->json(['success' => true, 'message' => 'Success', 'data' => $guru_data]);
     }
 
-
-
-
     /**
      * Display the specified resource.
      */
@@ -139,6 +136,8 @@ class GuruController extends Controller
             ->get();
         if ($guru->isNotEmpty()) {
             return response()->json([
+                'success' => true,
+                'message' => 'Success',
                 'data' => $guru,
             ], 200);
         } else {

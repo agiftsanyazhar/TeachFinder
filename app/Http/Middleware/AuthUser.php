@@ -20,7 +20,10 @@ class AuthUser
         $user = User::where('secret_token', $token)->first();
 
         if (!$user) {
-            return response()->json(['message' => 'Unauthorized'], 401);
+            return response()->json([
+                'success' => false,
+                'message' => 'Unauthorized',
+            ], 401);
         }
 
         $request->attributes->add(['user' => $user]);

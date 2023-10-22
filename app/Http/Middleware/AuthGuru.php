@@ -16,7 +16,6 @@ class AuthGuru
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // $id = $request->route('id');
         $id = $request->input('guru_id');
 
         $guru = Guru::with('lokasi', 'user')
@@ -27,7 +26,10 @@ class AuthGuru
             ->first();
 
         if (!$guru) {
-            return response()->json(['message' => 'Unauthorized'], 401);
+            return response()->json([
+                'success' => false,
+                'message' => 'Unauthorized',
+            ], 401);
         }
 
         $request->attributes->add(['guru' => $guru]);

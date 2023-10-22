@@ -17,13 +17,16 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Admin',
                 'email' => 'admin@gmail.com',
+                'email_verified' => 1,
                 'password' => Hash::make('12345678'),
                 'role_id' => 1,
                 'secret_token' => '1hN5kQH1fT9N8I09F17ar4I7NjY8uwUjfZLK5L4Y',
+                'visible_token' => '1hN5kQH1fT9N8I09F17ar4I7NjY8uwUjfZLK5L4Y',
                 'last_login' => '2023-10-19 03:47:27',
                 'last_logout' => '2023-10-19 13:47:27',
                 'secret_link' => 'JBGiOJ1z8Vw2WBj5xbQPywqCHY3cr33U62lsx7t6',
                 'secret_at' => '2023-10-19 03:47:27',
+                'secret_is_used' => 1,
             ],
             [
                 'name' => 'Guru1',

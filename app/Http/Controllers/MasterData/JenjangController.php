@@ -15,6 +15,8 @@ class JenjangController extends Controller
         $jenjang = Jenjang::get();
 
         return response()->json([
+            'success' => true,
+            'message' => 'Success',
             'data' => $jenjang,
         ], 200);
     }
