@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('user')->name('user.')->group(function () {
     Route::get('/', [UserController::class, 'index'])->name('index');
+    Route::middleware('auth_user')->get('/show', [UserController::class, 'show'])->name('show');
     Route::post('/login', [UserController::class, 'login'])->name('login');
     Route::post('/register', [UserController::class, 'register'])->name('register');
 });

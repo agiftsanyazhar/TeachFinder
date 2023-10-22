@@ -16,8 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('jadwal')->name('jadwal.')->group(function () {
     Route::get('/', [JadwalController::class, 'index'])->name('index');
+    Route::get('/show/{id}', [JadwalController::class, 'show'])->name('show');
     Route::get('/filter-jadwal', [JadwalController::class, 'filterJadwal'])->name('filter-jadwal');
-    Route::post('/store', [JadwalController::class, 'store'])->name('store');
+    Route::middleware('auth_guru')->post('/store', [JadwalController::class, 'store'])->name('store');
     Route::patch('/update/{id}', [JadwalController::class, 'update'])->name('update');
     Route::delete('/destroy/{id}', [JadwalController::class, 'destroy'])->name('destroy');
 });
