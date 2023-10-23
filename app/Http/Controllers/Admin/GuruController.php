@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\{
+    AlamatGuru,
     Guru,
+    Jadwal,
 };
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{
@@ -23,7 +25,7 @@ class GuruController extends Controller
 
         $data['gurus'] = Guru::get();
 
-        return view('admin.users.guru', $data);
+        return view('admin.users.guru.index', $data);
     }
 
     public function update(Request $request)
@@ -44,5 +46,18 @@ class GuruController extends Controller
             $message = 'Failed to save. ' . $e->getMessage();
         }
         return redirect()->back()->with($status, $message);
+    }
+
+    public function detail($id)
+    {
+        $data['title'] = 'Guru Detail';
+
+        $guru = Guru::where('id', $id)->firstOrFail();
+
+        $data['guru'] = $guru;
+        $data['alamatGuru'] = AlamatGuru::where('guru_id', $guru->id)->orderBy('alamat')->get();
+        $data['jadwals'] = Jadwal::where('guru_id', $guru->id)->orderBy('hari_id')->get();
+
+        return view('admin.users.guru.detail', $data);
     }
 }

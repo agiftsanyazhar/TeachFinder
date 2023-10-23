@@ -29,8 +29,8 @@
                                     <th scope="col">Name</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Phone</th>
-                                    <th scope="col">Jenjang</th>
-                                    <th scope="col">Alamat</th>
+                                    <th scope="col">Level</th>
+                                    <th scope="col">Address</th>
                                     <th scope="col">is Email Verified?</th>
                                     <th scope="col">Last Login</th>
                                     <th scope="col">Created At</th>

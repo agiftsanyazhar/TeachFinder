@@ -31,7 +31,7 @@
                                     <th scope="col">Phone</th>
                                     <th scope="col">Description</th>
                                     <th scope="col">is Active?</th>
-                                    <th scope="col">Lokasi</th>
+                                    <th scope="col">Location</th>
                                     <th scope="col">Photo</th>
                                     <th scope="col">SKL/Ijazah</th>
                                     <th scope="col">is Verified?</th>
@@ -66,13 +66,14 @@
                                         <td>{{ date('Y-m-d H:i', strtotime($guru->created_at)) }}</td>
                                         <td>
                                             @if ($guru->is_verified == 0)
-                                            <form id="formAccept" action="{{ route('admin.users.guru.update', $guru->id) }}" method="POST">
-                                                @csrf
-                                                <input type="hidden" name="id" value="{{ $guru->id }}">
-                                                <div class="btn-group" role="group">
-                                                    <a href="{{ route('admin.users.guru.update', $guru->id) }}" class="btn btn-success text-white" onclick="event.preventDefault(); getElementById('formAccept').submit();"><i class="bi bi-check-lg"></i></a>
+                                                <div class="d-flex">
+                                                    <a href="{{ route('admin.users.guru.detail.index', $guru->id) }}" class="btn btn-primary text-white ms-1 me-1"><i class="bi bi-eye"></i></a>
+                                                    <form id="formAccept" action="{{ route('admin.users.guru.update', $guru->id) }}" method="POST">
+                                                        @csrf
+                                                        <input type="hidden" name="id" value="{{ $guru->id }}">
+                                                        <a href="{{ route('admin.users.guru.update', $guru->id) }}" class="btn btn-success text-white ms-1 me-1" onclick="event.preventDefault(); getElementById('formAccept').submit();"><i class="bi bi-check-lg"></i></a>
+                                                    </form>
                                                 </div>
-                                            </form>
                                             @else
                                                 -
                                             @endif

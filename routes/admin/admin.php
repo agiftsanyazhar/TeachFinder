@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\{
     GuruController,
     MuridController,
+    PesananController,
     UserController,
 };
 use App\Http\Controllers\Admin\MasterData\{
@@ -45,8 +46,18 @@ Route::prefix('users')->name('users.')->group(function () {
     Route::prefix('guru')->name('guru.')->group(function () {
         Route::get('/', [GuruController::class, 'index'])->name('index');
         Route::post('/update/{id}', [GuruController::class, 'update'])->name('update');
+        Route::prefix('detail')->name('detail.')->group(function () {
+            Route::get('/{guru_id}', [GuruController::class, 'detail'])->name('index');
+        });
     });
     Route::prefix('murid')->name('murid.')->group(function () {
         Route::get('/', [MuridController::class, 'index'])->name('index');
     });
+});
+
+// --------------------------------------------------------------------------
+// Pesanan
+// --------------------------------------------------------------------------
+Route::prefix('pesanan')->name('pesanan.')->group(function () {
+    Route::get('/', [PesananController::class, 'index'])->name('index');
 });
