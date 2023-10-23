@@ -17,5 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('pesanan')->name('pesanan.')->group(function () {
     Route::get('/', [PesananController::class, 'index'])->name('index');
     Route::post('/store', [PesananController::class, 'store'])->name('store');
+    Route::post('/store-array', [PesananController::class, 'storeArray'])->name('storeArray');
     Route::patch('/update/{id}', [PesananController::class, 'update'])->name('update');
 });

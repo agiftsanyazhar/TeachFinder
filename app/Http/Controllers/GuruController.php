@@ -132,7 +132,7 @@ class GuruController extends Controller
     public function show(string $id)
     {
         $guru = Guru::where('user_id', $id)
-            ->with('lokasi', 'user')
+            ->with('lokasi', 'user', 'pesanan')
             ->get();
         if ($guru->isNotEmpty()) {
             return response()->json([

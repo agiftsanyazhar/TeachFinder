@@ -21,8 +21,6 @@ class PesananController extends Controller
             ->get();
 
         return response()->json([
-            'success' => true,
-            'message' => 'Success',
             'data' => $pesanan,
         ], 200);
     }
@@ -56,6 +54,40 @@ class PesananController extends Controller
             Log::debug($e->getMessage());
         }
     }
+
+    public function storeArray(Request $request)
+    {
+        $dataArray = $request->input('pesanan');
+
+        try {
+            foreach ($dataArray as $data) {
+                Pesanan::create([
+                    'murid_id' => $data['murid_id'],
+                    'guru_id' => $data['guru_id'],
+                    'jadwal_id' => $data['jadwal_id'],
+                    // tambahkan kolom lainnya yang diperlukan di sini
+                ]);
+            }
+
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => 'Success.',
+                    'pesanan' => $dataArray,
+                ]
+            );
+        } catch (\Exception $e) {
+            Log::debug($e->getMessage());
+
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Gagal. ' . $e->getMessage(),
+                ]
+            );
+        }
+    }
+
 
     /**
      * Display the specified resource.
