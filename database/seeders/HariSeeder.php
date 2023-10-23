@@ -13,13 +13,13 @@ class HariSeeder extends Seeder
     public function run(): void
     {
         $hari = [
+            ['name' => 'Minggu'],
             ['name' => 'Senin'],
             ['name' => 'Selasa'],
             ['name' => 'Rabu'],
             ['name' => 'Kamis'],
             ['name' => 'Jumat'],
             ['name' => 'Sabtu'],
-            ['name' => 'Minggu'],
         ];
 
         foreach ($hari as $item) {

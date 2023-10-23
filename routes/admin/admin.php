@@ -5,17 +5,33 @@ use App\Http\Controllers\Admin\{
     MuridController,
     UserController,
 };
+use App\Http\Controllers\Admin\MasterData\{
+    HariController,
+    JenjangController,
+    LokasiController,
+    MataPelajaranController,
+    RoleController,
+};
 use Illuminate\Support\Facades\Route;
 
 // --------------------------------------------------------------------------
-// Master
+// Master Data
 // --------------------------------------------------------------------------
-Route::prefix('master')->name('master.')->group(function () {
-    Route::prefix('degree')->name('degree.')->group(function () {
-        Route::get('/', [DegreeController::class, 'index'])->name('index');
-        Route::post('/store', [DegreeController::class, 'store'])->name('store');
-        Route::post('/update', [DegreeController::class, 'update'])->name('update');
-        Route::get('/destroy/{id}', [DegreeController::class, 'destroy'])->name('destroy');
+Route::prefix('master-data')->name('master-data.')->group(function () {
+    Route::prefix('hari')->name('hari.')->group(function () {
+        Route::get('/', [HariController::class, 'index'])->name('index');
+    });
+    Route::prefix('jenjang')->name('jenjang.')->group(function () {
+        Route::get('/', [JenjangController::class, 'index'])->name('index');
+    });
+    Route::prefix('lokasi')->name('lokasi.')->group(function () {
+        Route::get('/', [LokasiController::class, 'index'])->name('index');
+    });
+    Route::prefix('mata-pelajaran')->name('mata-pelajaran.')->group(function () {
+        Route::get('/', [MataPelajaranController::class, 'index'])->name('index');
+    });
+    Route::prefix('role')->name('role.')->group(function () {
+        Route::get('/', [RoleController::class, 'index'])->name('index');
     });
 });
 

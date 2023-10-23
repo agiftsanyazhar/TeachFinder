@@ -18,6 +18,6 @@ class UserController extends Controller
 
         $data['users'] = User::get();
 
-        return view('admin.users.index', $data);
+        return view('admin.users.all-user', $data);
     }
 }
