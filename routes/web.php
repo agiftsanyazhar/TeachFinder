@@ -14,5 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('login');
 });
+
+Route::get('/admin', function () {
+    return redirect()->route('admin.users.user.index');
+})->middleware(['auth'])->name('admin');
+
+Route::get('/dashboard', function () {
+    return redirect()->route('admin.users.user.index');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__ . '/auth.php';

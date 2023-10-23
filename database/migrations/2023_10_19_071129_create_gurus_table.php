@@ -22,6 +22,7 @@ return new class extends Migration
                 ->constrained('lokasis')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->boolean('is_verified')->default(0);
             $table->string('skl_ijazah')->nullable();
             $table->foreignId('user_id')
                 ->constrained('users')

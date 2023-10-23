@@ -18,6 +18,7 @@ class UserSeeder extends Seeder
                 'name' => 'Admin',
                 'email' => 'admin@gmail.com',
                 'email_verified' => 1,
+                'email_verified_at' => '2023-10-19 03:47:27',
                 'password' => Hash::make('12345678'),
                 'role_id' => 1,
                 'secret_token' => '1hN5kQH1fT9N8I09F17ar4I7NjY8uwUjfZLK5L4Y',
