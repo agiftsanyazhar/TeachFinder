@@ -52,12 +52,19 @@ class GuruController extends Controller
     {
         $data['title'] = 'Guru Detail';
 
-        $guru = Guru::where('id', $id)->firstOrFail();
+        try {
+            $guru = Guru::where('id', $id)->firstOrFail();
 
-        $data['guru'] = $guru;
-        $data['alamatGuru'] = AlamatGuru::where('guru_id', $guru->id)->orderBy('alamat')->get();
-        $data['jadwals'] = Jadwal::where('guru_id', $guru->id)->orderBy('hari_id')->get();
+            $data['guru'] = $guru;
+            $data['alamatGuru'] = AlamatGuru::where('guru_id', $guru->id)->orderBy('alamat')->get();
+            $data['jadwals'] = Jadwal::where('guru_id', $guru->id)->orderBy('hari_id')->get();
 
-        return view('admin.users.guru.detail', $data);
+            return view('admin.users.guru.detail', $data);
+        } catch (\Exception $e) {
+            $status = 'danger';
+            $message = 'Failed to save. ' . $e->getMessage();
+
+            return redirect()->back()->with($status, $message);
+        }
     }
 }

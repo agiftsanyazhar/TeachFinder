@@ -67,7 +67,7 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link {{ request()->is('admin') ? '' : 'collapsed' }}" href="">
+        <a class="nav-link {{ request()->is('admin/testimonial') ? '' : 'collapsed' }}" href="{{ route('admin.testimonial.index') }}">
             <i class="bx bx-user"></i>
             <span>Testimonial</span>
         </a>

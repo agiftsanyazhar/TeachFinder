@@ -26,11 +26,18 @@ class PesananController extends Controller
     {
         $data['title'] = 'Pesanan Detail';
 
-        $pesanan = Pesanan::where('id', $id)->firstOrFail();
+        try {
+            $pesanan = Pesanan::where('id', $id)->firstOrFail();
 
-        $data['pesanans'] = $pesanan;
-        $data['jadwals'] = Jadwal::where('id', $pesanan->id)->orderBy('hari_id')->get();
+            $data['pesanans'] = $pesanan;
+            $data['jadwals'] = Jadwal::where('id', $pesanan->id)->orderBy('hari_id')->get();
 
-        return view('admin.pesanan.detail', $data);
+            return view('admin.pesanan.detail', $data);
+        } catch (\Exception $e) {
+            $status = 'danger';
+            $message = 'Failed to save. ' . $e->getMessage();
+
+            return redirect()->back()->with($status, $message);
+        }
     }
 }

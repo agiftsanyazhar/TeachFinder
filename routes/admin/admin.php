@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\{
     GuruController,
     MuridController,
     PesananController,
+    TestimonialController,
     UserController,
 };
 use App\Http\Controllers\Admin\MasterData\{
@@ -63,4 +64,11 @@ Route::prefix('pesanan')->name('pesanan.')->group(function () {
     Route::prefix('detail')->name('detail.')->group(function () {
         Route::get('/{pesanan_id}', [PesananController::class, 'detail'])->name('index');
     });
+});
+
+// --------------------------------------------------------------------------
+// Testimonial
+// --------------------------------------------------------------------------
+Route::prefix('testimonial')->name('testimonial.')->group(function () {
+    Route::get('/', [TestimonialController::class, 'index'])->name('index');
 });
