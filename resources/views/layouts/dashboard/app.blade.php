@@ -30,9 +30,6 @@
   <!-- Template Main CSS File -->
   <link href="{{ asset('dashboard-assets/css/style.css') }}" rel="stylesheet">
 
-  <link href="{{ url('https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/dropzone.min.css') }}" rel="stylesheet">
-  <script src="{{ url('https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/min/dropzone.min.js') }}"></script>
-
 </head>
 
 <body>
@@ -82,7 +79,6 @@
   <script src="{{ asset('dashboard-assets/js/main.js') }}"></script>
 
   <script src="{{ url('https://code.jquery.com/jquery-3.7.0.min.js') }}" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-  <script src="{{ url('https://cdn.jsdelivr.net/npm/sweetalert2@11') }}"></script>
 
   <script>
     const d = new Date();
@@ -91,37 +87,6 @@
     yearElements.forEach(element => {
       element.innerHTML = year;
     });
-  </script>
-
-  <script>
-    function alertDialog(name = '') {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Warning!',
-        text: name + ' is Required',
-        confirmButtonColor: '#6c757d',
-        confirmButtonText: 'Close',
-      })
-    }
-
-    function deleteDialog(url, name = '') {
-      if (name == '')
-        name = 'this';
-        Swal.fire({
-          icon: 'warning',
-          title: 'Confirmation?',
-          text: 'Are you sure you want to delete ' + name + '?',
-          showCancelButton: true,
-          confirmButtonColor: '#dc3545',
-          confirmButtonText: 'Delete',
-          cancelButtonColor: '#6c757d',
-          cancelButtonText: 'Cancel'
-      }).then((result) => {
-        if (result.value !== undefined && result.value) {
-          window.location.href = url;
-        }
-      })
-    }
   </script>
 
 </body>

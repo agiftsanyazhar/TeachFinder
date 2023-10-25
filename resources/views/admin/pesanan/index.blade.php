@@ -26,10 +26,10 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Student</th>
-                                    <th scope="col">Teacher</th>
-                                    <th scope="col">Day</th>
+                                    <th scope="col">Name Schedule</th>
                                     <th scope="col">is Payed?</th>
                                     <th scope="col">Description</th>
+                                    <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -38,10 +38,12 @@
                                     <tr>
                                         <th scope="row">{{ $number }}</th>
                                         <td>{{ $pesanan->murid->name }}</td>
-                                        <td>{{ $pesanan->guru->name }}</td>
                                         <td>{{ $pesanan->jadwal->name }}</td>
                                         <td>{{ $pesanan->status == 1 ? 'Yes' : 'No' }}</td>
                                         <td>{{ $pesanan->description }}</td>
+                                        <td>
+                                            <a href="{{ route('admin.pesanan.detail.index', $pesanan->id) }}" class="btn btn-primary text-white ms-1 me-1"><i class="bi bi-eye"></i></a>
+                                        </td>
                                     </tr>
                                     @php($number++)
                                 @endforeach

@@ -61,7 +61,7 @@
                             Schedule
                         </h5>
 
-                        <table class="table datatable">
+                        <table class="table">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -75,17 +75,27 @@
                             </thead>
                             <tbody>
                                 @php($number=1)
-                                @foreach ($jadwals as $jadwal)
-                                    <tr>
-                                        <th scope="row">{{ $number }}</th>
-                                        <td>{{ $jadwal->hari->name }}</td>
-                                        <td>{{ $jadwal->name }}</td>
-                                        <td>{{ $jadwal->mataPelajaran->name }}</td>
-                                        <td>{{ $jadwal->jenjang->name }}</td>
-                                        <td>{{ $jadwal->waktu_mulai }} - {{ $jadwal->waktu_akhir }}</td>
-                                        <td>Rp {{ number_format($jadwal->harga, 2, ',', '.') }}</td>
-                                    </tr>
-                                    @php($number++)
+                                @php($groupedJadwals = collect($jadwals)->groupBy('hari.name'))
+                                @foreach ($groupedJadwals as $day => $dayJadwals)
+                                    @php($rowspan = count($dayJadwals))
+                                    @php($innerNumber = 1)
+                                    @foreach ($dayJadwals as $index => $jadwal)
+                                        <tr>
+                                            @if ($index === 0)
+                                                <th scope="row" rowspan="{{ $rowspan }}">{{ $number }}</th>
+                                                <td rowspan="{{ $rowspan }}">{{ $day }}</td>
+                                            @endif
+                                            <td>{{ $jadwal->name }}</td>
+                                            <td>{{ $jadwal->mataPelajaran->name }}</td>
+                                            <td>{{ $jadwal->jenjang->name }}</td>
+                                            <td>{{ $jadwal->waktu_mulai }} - {{ $jadwal->waktu_akhir }}</td>
+                                            <td>Rp {{ number_format($jadwal->harga, 2, ',', '.') }}</td>
+                                            @if ($index === 0)
+                                                @php($number++)
+                                            @endif
+                                        </tr>
+                                        @php($innerNumber++)
+                                    @endforeach
                                 @endforeach
                             </tbody>
                         </table>

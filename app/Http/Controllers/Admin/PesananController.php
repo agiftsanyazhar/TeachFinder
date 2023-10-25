@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\{
+    Jadwal,
     Pesanan,
 };
 
@@ -19,5 +20,17 @@ class PesananController extends Controller
         $data['pesanans'] = Pesanan::get();
 
         return view('admin.pesanan.index', $data);
+    }
+
+    public function detail($id)
+    {
+        $data['title'] = 'Pesanan Detail';
+
+        $pesanan = Pesanan::where('id', $id)->firstOrFail();
+
+        $data['pesanans'] = $pesanan;
+        $data['jadwals'] = Jadwal::where('id', $pesanan->id)->orderBy('hari_id')->get();
+
+        return view('admin.pesanan.detail', $data);
     }
 }

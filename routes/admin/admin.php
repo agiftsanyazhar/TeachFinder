@@ -60,4 +60,7 @@ Route::prefix('users')->name('users.')->group(function () {
 // --------------------------------------------------------------------------
 Route::prefix('pesanan')->name('pesanan.')->group(function () {
     Route::get('/', [PesananController::class, 'index'])->name('index');
+    Route::prefix('detail')->name('detail.')->group(function () {
+        Route::get('/{pesanan_id}', [PesananController::class, 'detail'])->name('index');
+    });
 });
