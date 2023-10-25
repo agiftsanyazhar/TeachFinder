@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\{
     User,
+    Guru,
+    Murid
 };
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -129,6 +131,11 @@ class UserController extends Controller
                 }
             }
 
+            $check = Murid::where('phone', $value['phone'])->first();
+            if ($check != null) {
+                return response()->json(['success' => false, 'message' => 'Telepon telah digunakan.', 'data' => null]);
+            }
+
             if ($user->save()) {
                 $muridController = new MuridController();
                 return $muridController->store($request, $user, $value);
@@ -167,6 +174,11 @@ class UserController extends Controller
                 if ($cek != null) {
                     return response()->json(['success' => false, 'message' => 'Email telah digunakan.', 'data' => null]);
                 }
+            }
+
+            $check = Guru::where('phone', $value['phone'])->first();
+            if ($check != null) {
+                return response()->json(['success' => false, 'message' => 'Telepon telah digunakan.', 'data' => null]);
             }
 
             if ($user->save()) {
