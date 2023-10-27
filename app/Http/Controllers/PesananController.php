@@ -20,6 +20,12 @@ class PesananController extends Controller
             ->orderBy('created_at')
             ->get();
 
+        $pesanan->each(function ($item) {
+            $item->jadwal->hari->name;
+            $item->murid->jenjang->name;
+            $item->jadwal->mataPelajaran->name;
+        });
+
         return response()->json([
             'data' => $pesanan,
         ], 200);
