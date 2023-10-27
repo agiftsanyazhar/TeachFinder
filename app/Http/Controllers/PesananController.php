@@ -92,9 +92,26 @@ class PesananController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function pesananGuru(string $id)
     {
-        //
+        $pesanan = Pesanan::where('guru_id', $id)->with('murid', 'guru', 'jadwal')
+            ->orderBy('created_at')
+            ->get();
+
+        return response()->json([
+            'data' => $pesanan,
+        ], 200);
+    }
+
+    public function pesananSiswa(string $id)
+    {
+        $pesanan = Pesanan::where('murid_id', $id)->with('murid', 'guru', 'jadwal')
+            ->orderBy('created_at')
+            ->get();
+
+        return response()->json([
+            'data' => $pesanan,
+        ], 200);
     }
 
     /**
