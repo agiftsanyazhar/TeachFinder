@@ -30,7 +30,14 @@ class UserController extends Controller
     public function show(Request $request)
     {
         $user = $request->get('user');
+
         if ($user) {
+            if ($user->role_id == 2) {
+                $user->load('guru');
+            } else if ($user->role_id == 3) {
+                $user->load('siswa');
+            }
+
             return response()->json(
                 [
                     'success' => true,
@@ -39,6 +46,14 @@ class UserController extends Controller
                 ]
             );
         }
+
+        return response()->json(
+            [
+                'success' => false,
+                'message' => 'User not found',
+            ],
+            404
+        );
     }
     public function login(Request $request)
     {
