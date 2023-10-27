@@ -20,5 +20,5 @@ Route::prefix('pesanan')->name('pesanan.')->group(function () {
     Route::get('/pesanan-siswa/{id}', [PesananController::class, 'pesananSiswa'])->name('pesananSiswa');
     Route::post('/store', [PesananController::class, 'store'])->name('store');
     Route::post('/store-array', [PesananController::class, 'storeArray'])->name('storeArray');
-    Route::patch('/update/{id}', [PesananController::class, 'update'])->name('update');
+    Route::post('/update/{id}', [PesananController::class, 'update'])->name('update');
 });

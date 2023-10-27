@@ -35,7 +35,7 @@ class UserController extends Controller
             if ($user->role_id == 2) {
                 $user->load('guru');
             } else if ($user->role_id == 3) {
-                $user->load('siswa');
+                $user->load('murid');
             }
 
             return response()->json(
