@@ -14,9 +14,6 @@ class Guru extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
-    protected $fillable = [
-        'skl_ijazah',
-    ];
 
     /**
      * Get the lokasi that owns the Guru

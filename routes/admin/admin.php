@@ -46,7 +46,9 @@ Route::prefix('users')->name('users.')->group(function () {
     });
     Route::prefix('guru')->name('guru.')->group(function () {
         Route::get('/', [GuruController::class, 'index'])->name('index');
-        Route::post('/update/{id}', [GuruController::class, 'update'])->name('update');
+        Route::post('/store', [GuruController::class, 'store'])->name('store');
+        Route::post('/update', [GuruController::class, 'update'])->name('update');
+        Route::post('/update/{id}', [GuruController::class, 'updateStatus'])->name('update-status');
         Route::prefix('detail')->name('detail.')->group(function () {
             Route::get('/{guru_id}', [GuruController::class, 'detail'])->name('index');
         });

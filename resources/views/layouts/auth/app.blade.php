@@ -9,9 +9,6 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  {{-- <!-- Favicons -->
-  <link href="{{ asset($aboutMe[0]['sidebar_profile'] ? 'storage/' . $aboutMe[0]['sidebar_profile'] : 'storage/upload/profile/unnamed.jpg') }}" rel="icon">
-  <link href="{{ asset($aboutMe[0]['sidebar_profile'] ? 'storage/' . $aboutMe[0]['sidebar_profile'] : 'storage/upload/profile/unnamed.jpg') }}" rel="apple-touch-icon"> --}}
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="{{ url('https://fonts.googleapis.com') }}">
