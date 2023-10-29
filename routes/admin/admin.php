@@ -55,9 +55,16 @@ Route::prefix('users')->name('users.')->group(function () {
         Route::get('/destroy/{id}', [GuruController::class, 'destroy'])->name('destroy');
         Route::prefix('detail')->name('detail.')->group(function () {
             Route::get('/{guru_id}', [DetailGuruController::class, 'index'])->name('index');
+
+            // Alamat Guru
             Route::post('/{guru_id}/store-alamat-guru', [DetailGuruController::class, 'storeAlamatGuru'])->name('store-alamat-guru');
             Route::post('/{guru_id}/update-alamat-guru', [DetailGuruController::class, 'updateAlamatGuru'])->name('update-alamat-guru');
             Route::get('/{guru_id}/destroy-alamat-guru/{id}', [DetailGuruController::class, 'destroyAlamatGuru'])->name('destroy-alamat-guru');
+
+            // Jadwal
+            Route::post('/{guru_id}/store-jadwal', [DetailGuruController::class, 'storeJadwal'])->name('store-jadwal');
+            Route::post('/{guru_id}/update-jadwal', [DetailGuruController::class, 'updateJadwal'])->name('update-jadwal');
+            Route::get('/{guru_id}/destroy-jadwal/{id}', [DetailGuruController::class, 'destroyJadwal'])->name('destroy-jadwal');
         });
     });
     Route::prefix('murid')->name('murid.')->group(function () {
