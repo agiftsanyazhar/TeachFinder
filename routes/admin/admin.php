@@ -52,10 +52,12 @@ Route::prefix('users')->name('users.')->group(function () {
         Route::post('/store', [GuruController::class, 'store'])->name('store');
         Route::post('/update', [GuruController::class, 'update'])->name('update');
         Route::post('/update/{id}', [GuruController::class, 'updateStatus'])->name('update-status');
+        Route::get('/destroy/{id}', [GuruController::class, 'destroy'])->name('destroy');
         Route::prefix('detail')->name('detail.')->group(function () {
             Route::get('/{guru_id}', [DetailGuruController::class, 'index'])->name('index');
             Route::post('/{guru_id}/store-alamat-guru', [DetailGuruController::class, 'storeAlamatGuru'])->name('store-alamat-guru');
             Route::post('/{guru_id}/update-alamat-guru', [DetailGuruController::class, 'updateAlamatGuru'])->name('update-alamat-guru');
+            Route::get('/{guru_id}/destroy-alamat-guru/{id}', [DetailGuruController::class, 'destroyAlamatGuru'])->name('destroy-alamat-guru');
         });
     });
     Route::prefix('murid')->name('murid.')->group(function () {

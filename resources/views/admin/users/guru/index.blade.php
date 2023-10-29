@@ -70,19 +70,20 @@
                                         <td>{{ date('Y-m-d H:i', strtotime($guru->created_at)) }}</td>
                                         <td>
                                             <div class="d-flex">
+                                                @if ($guru->is_verified == 0)
+                                                    <form action="{{ route('admin.users.guru.update-status', $guru->id) }}" method="POST">
+                                                        @csrf
+                                                        <input type="hidden" name="id" value="{{ $guru->id }}">
+                                                        <button type="submit" class="btn btn-success text-white"><i class="bi bi-check-lg"></i></button>
+                                                    </form>
+                                                @endif
                                                 <a href="{{ route('admin.users.guru.detail.index', $guru->id) }}" class="btn btn-primary text-white ms-1 me-1"><i class="bi bi-eye"></i></a>
                                                 <button type="button" class="btn btn-warning text-white" data-bs-toggle="modal"
                                                     data-bs-target="#modalForm"
                                                     onclick="openFormDialog('modalForm', 'edit', '{{ $guru->id }}', '{{ $guru->name }}', '{{ $guru->email }}', '{{ $guru->phone }}', '{{ $guru->lokasi_id }}', '{{ $guru->description }}')">
                                                     <i class="bi bi-pencil-square"></i>
                                                 </button>
-                                                @if ($guru->is_verified == 0)
-                                                    <form action="{{ route('admin.users.guru.update-status', $guru->id) }}" method="POST">
-                                                        @csrf
-                                                        <input type="hidden" name="id" value="{{ $guru->id }}">
-                                                        <button type="submit" class="btn btn-success text-white ms-1 me-1"><i class="bi bi-check-lg"></i></button>
-                                                    </form>
-                                                @endif
+                                                <a href="{{ route('admin.users.guru.destroy', $guru->id) }}" class="btn btn-danger text-white ms-1 me-1"><i class="bi bi-trash"></i></a>
                                             </div>
                                         </td>
                                     </tr>

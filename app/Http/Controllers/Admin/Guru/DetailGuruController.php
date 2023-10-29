@@ -10,6 +10,7 @@ use App\Models\{
 };
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{
+    DB,
     Log,
 };
 
@@ -85,6 +86,26 @@ class DetailGuruController extends Controller
             $message = 'Failed to Save. ' . $e->getMessage();
 
             Log::error($e->getMessage());
+        }
+
+        return redirect()->back()->with($status, $message);
+    }
+
+    public function destroyAlamatGuru($guru_id, $id)
+    {
+        try {
+            $alamatGuru = AlamatGuru::where(['guru_id' => $guru_id, 'id' => $id])->firstOrFail();
+
+            $alamatGuru->delete();
+
+            $status = 'success';
+            $message = 'Deleted Successfully';
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::debug($e->getMessage());
+
+            $status = 'danger';
+            $message = 'Failed to Delete. ' . $e->getMessage();
         }
 
         return redirect()->back()->with($status, $message);

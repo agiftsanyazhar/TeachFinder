@@ -162,4 +162,24 @@ class GuruController extends Controller
             return redirect()->back()->with($status, $message);
         }
     }
+
+    public function destroy($id)
+    {
+        try {
+            $guru = Guru::findOrFail($id);
+
+            $guru->delete();
+
+            $status = 'success';
+            $message = 'Deleted Successfully';
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::debug($e->getMessage());
+
+            $status = 'danger';
+            $message = 'Failed to Delete. ' . $e->getMessage();
+        }
+
+        return redirect()->back()->with($status, $message);
+    }
 }

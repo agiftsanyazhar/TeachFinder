@@ -48,6 +48,7 @@
                                                 onclick="openFormDialog('modalFormAlamatGuru', 'edit', '{{ $itemAlamat->id }}', '{{ $itemAlamat->alamat }}', '{{ $itemAlamat->guru_id }}')">
                                                 <i class="bi bi-pencil-square"></i>
                                             </button>
+                                            <a href="{{ route('admin.users.guru.detail.destroy-alamat-guru', ['guru_id' => $itemAlamat->guru_id, 'id' => $itemAlamat->id]) }}" class="btn btn-danger text-white ms-1 me-1"><i class="bi bi-trash"></i></a>
                                         </td>
                                     </tr>
                                     @php($number++)
