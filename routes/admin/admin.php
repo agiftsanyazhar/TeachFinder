@@ -69,6 +69,9 @@ Route::prefix('users')->name('users.')->group(function () {
     });
     Route::prefix('murid')->name('murid.')->group(function () {
         Route::get('/', [MuridController::class, 'index'])->name('index');
+        Route::post('/store', [MuridController::class, 'store'])->name('store');
+        Route::post('/update', [MuridController::class, 'update'])->name('update');
+        Route::get('/destroy/{id}', [MuridController::class, 'destroy'])->name('destroy');
     });
 });
 
