@@ -1,7 +1,10 @@
 <?php
 
-use App\Http\Controllers\Admin\{
+use App\Http\Controllers\Admin\Guru\{
+    DetailGuruController,
     GuruController,
+};
+use App\Http\Controllers\Admin\{
     MuridController,
     PesananController,
     TestimonialController,
@@ -50,7 +53,9 @@ Route::prefix('users')->name('users.')->group(function () {
         Route::post('/update', [GuruController::class, 'update'])->name('update');
         Route::post('/update/{id}', [GuruController::class, 'updateStatus'])->name('update-status');
         Route::prefix('detail')->name('detail.')->group(function () {
-            Route::get('/{guru_id}', [GuruController::class, 'detail'])->name('index');
+            Route::get('/{guru_id}', [DetailGuruController::class, 'index'])->name('index');
+            Route::post('/{guru_id}/store-alamat-guru', [DetailGuruController::class, 'storeAlamatGuru'])->name('store-alamat-guru');
+            Route::post('/{guru_id}/update-alamat-guru', [DetailGuruController::class, 'updateAlamatGuru'])->name('update-alamat-guru');
         });
     });
     Route::prefix('murid')->name('murid.')->group(function () {

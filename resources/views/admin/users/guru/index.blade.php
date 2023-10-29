@@ -170,11 +170,11 @@
             if (type === 'add') {
                 $('#' + target + ' form').attr('action', '{{ route('admin.users.guru.store') }}');
                 $('#' + target + ' .form-control').val('');
-                $('#' + target + ' input[name="name"]').attr('required', 'required');
-                $('#' + target + ' input[name="email"]').attr('required', 'required');
-                $('#' + target + ' input[name="phone"]').attr('required', 'required');
-                $('#' + target + ' select[name="lokasi_id"]').attr('required', 'required');
-                $('#' + target + ' textarea[name="description"]').attr('required', 'required');
+                $('#' + target + ' input[name="name"]');
+                $('#' + target + ' input[name="email"]');
+                $('#' + target + ' input[name="phone"]');
+                $('#' + target + ' select[name="lokasi_id"]');
+                $('#' + target + ' textarea[name="description"]');
             } else if (type === 'edit') {
                 $('#' + target + ' .clear-after').val('');
                 $('#' + target + ' form').attr('action', '{{ route('admin.users.guru.update') }}');
