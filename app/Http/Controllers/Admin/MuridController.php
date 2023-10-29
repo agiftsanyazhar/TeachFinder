@@ -8,6 +8,7 @@ use App\Models\{
     Murid,
     User,
 };
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{
     DB,
@@ -43,7 +44,6 @@ class MuridController extends Controller
             $request->validate([
                 'name' => 'required|string',
                 'jenjang_id' => 'required|integer',
-                'phone' => 'required|string|unique:gurus,phone|unique:murids,phone',
                 'email' => 'required|email:rfc,dns|unique:users,email|unique:gurus,email|unique:murids,email',
                 'password' => 'required|min:6',
                 'alamat' => 'required|string',
@@ -53,6 +53,8 @@ class MuridController extends Controller
 
             $user->name = $data['name'];
             $user->email = $data['email'];
+            $user->email_verified = 1;
+            $user->email_verified_at = Carbon::now();
             $user->password = Hash::make($data['password']);
             $user->role_id = 3;
             $generate_random_string = Str::random(40);
@@ -88,7 +90,6 @@ class MuridController extends Controller
             $request->validate([
                 'name' => 'required|string',
                 'jenjang_id' => 'required|integer',
-                'phone' => 'required|string|unique:gurus,phone|unique:murids,phone',
                 'email' => 'required|email:rfc,dns|unique:users,email|unique:gurus,email|unique:murids,email',
                 'alamat' => 'required|string',
             ]);

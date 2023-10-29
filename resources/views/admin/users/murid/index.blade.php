@@ -105,7 +105,7 @@
                             </select>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label class="form-label"><b>Phone</b><span class="text-danger text-bold"><b>*</b></span></label>
+                            <label class="form-label"><b>Phone</b></label>
                             <input class="form-control" type="number" placeholder="Student Phone" name="phone" required>
                         </div>
                         <div class="col-md-4 mb-3">
