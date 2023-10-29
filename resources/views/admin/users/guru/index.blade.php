@@ -135,7 +135,7 @@
                         </div>
                         <div class="col-md-4 mb-3">
                             <label class="form-label"><b>Password</b></label>
-                            <input class="form-control" type="text" placeholder="Teacher Password" name="password">
+                            <input class="form-control" type="password" placeholder="Teacher Password" name="password">
                         </div>
                         
                         <div class="col-md-12 mb-3">

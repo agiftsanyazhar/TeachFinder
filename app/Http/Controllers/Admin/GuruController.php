@@ -36,7 +36,8 @@ class GuruController extends Controller
     public function store(Request $request)
     {
         $data = $request->only([
-            'name', 'lokasi_id', 'phone', 'email', 'password', 'description', 'image', 'skl_ijazah'
+            'name', 'lokasi_id', 'phone', 'email', 'password', 'description',
+            'image', 'skl_ijazah'
         ]);
 
         try {
@@ -65,11 +66,50 @@ class GuruController extends Controller
                 $user->image = $request->file('image');
             }
 
+            if ($request->hasFile('skl_ijazah')) {
+                $data['skl_ijazah'] = $request->file('skl_ijazah');
+            }
+
             $user->save();
 
             $userId = $user->id;
 
             Guru::create(array_merge($data, ['user_id' => $userId]));
+
+            $status = 'success';
+            $message = 'Saved Successfully';
+        } catch (\Exception $e) {
+            Log::debug($e->getMessage());
+
+            $status = 'danger';
+            $message = 'Failed to Save. ' . $e->getMessage();
+        }
+
+        return redirect()->back()->with($status, $message);
+    }
+
+    public function update(Request $request)
+    {
+        $guru = Guru::findOrFail($request->id);
+        $data = $request->only([
+            'name', 'lokasi_id', 'phone', 'email',  'description', 'skl_ijazah'
+        ]);
+
+        try {
+            $request->validate([
+                'name' => 'required|string',
+                'lokasi_id' => 'required|integer',
+                'phone' => 'required|string|unique:gurus,phone|unique:murids,phone',
+                'email' => 'required|email:rfc,dns|unique:users,email|unique:gurus,email|unique:murids,email',
+                'description' => 'string',
+                'skl_ijazah' => 'mimes:jpeg,jpg,png',
+            ]);
+
+            if ($request->hasFile('skl_ijazah')) {
+                $data['skl_ijazah'] = $request->file('skl_ijazah');
+            }
+
+            $guru->update($data);
 
             $status = 'success';
             $message = 'Saved Successfully';
