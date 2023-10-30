@@ -32,6 +32,8 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Guru1',
                 'email' => 'guru1@gmail.com',
+                'email_verified' => 1,
+                'email_verified_at' => '2023-10-19 03:47:27',
                 'password' => Hash::make('12345678'),
                 'role_id' => 2,
                 'secret_token' => 'P5uo1eOImz7iIM795L4zgZlaMMJ1C77RYn65ie29',
@@ -43,6 +45,8 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Guru2',
                 'email' => 'guru2@gmail.com',
+                'email_verified' => 1,
+                'email_verified_at' => '2023-10-19 03:47:27',
                 'password' => Hash::make('12345678'),
                 'role_id' => 2,
                 'secret_token' => 'P5uo1eOImz7iIM795L4zgZlaMMJ1C77RYn65ie29',
@@ -54,6 +58,8 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Guru3',
                 'email' => 'guru3@gmail.com',
+                'email_verified' => 1,
+                'email_verified_at' => '2023-10-19 03:47:27',
                 'password' => Hash::make('12345678'),
                 'role_id' => 2,
                 'secret_token' => 'P5uo1eOImz7iIM795L4zgZlaMMJ1C77RYn65ie29',
@@ -65,6 +71,8 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Murid1',
                 'email' => 'murid1@gmail.com',
+                'email_verified' => 1,
+                'email_verified_at' => '2023-10-19 03:47:27',
                 'password' => Hash::make('12345678'),
                 'role_id' => 3,
                 'secret_token' => 'm4Bsf3Rb9XGqHKI4623KPl4Kr12x72SOQ92hpKdZ',
@@ -76,6 +84,8 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Murid2',
                 'email' => 'murid2@gmail.com',
+                'email_verified' => 1,
+                'email_verified_at' => '2023-10-19 03:47:27',
                 'password' => Hash::make('12345678'),
                 'role_id' => 3,
                 'secret_token' => 'm4Bsf3Rb9XGqHKI4623KPl4Kr12x72SOQ92hpKdZ',
@@ -87,6 +97,8 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Murid3',
                 'email' => 'murid3@gmail.com',
+                'email_verified' => 1,
+                'email_verified_at' => '2023-10-19 03:47:27',
                 'password' => Hash::make('12345678'),
                 'role_id' => 3,
                 'secret_token' => 'm4Bsf3Rb9XGqHKI4623KPl4Kr12x72SOQ92hpKdZ',

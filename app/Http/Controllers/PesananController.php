@@ -104,6 +104,13 @@ class PesananController extends Controller
             ->orderBy('created_at')
             ->get();
 
+        foreach ($pesanan as $item) {
+            $item->jadwal->hari->name;
+            $item->murid->jenjang->name;
+            $item->jadwal->mataPelajaran->name;
+            $item->guru->lokasi->name;
+        };
+
         return response()->json([
             'data' => $pesanan,
         ], 200);
@@ -114,6 +121,13 @@ class PesananController extends Controller
         $pesanan = Pesanan::where('murid_id', $id)->with('murid', 'guru', 'jadwal')
             ->orderBy('created_at')
             ->get();
+
+        foreach ($pesanan as $item) {
+            $item->jadwal->hari->name;
+            $item->murid->jenjang->name;
+            $item->jadwal->mataPelajaran->name;
+            $item->guru->lokasi->name;
+        };
 
         return response()->json([
             'data' => $pesanan,
