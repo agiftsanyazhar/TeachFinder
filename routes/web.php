@@ -17,10 +17,6 @@ Route::get('/', function () {
     return redirect('login');
 });
 
-Route::get('/admin', function () {
-    return redirect()->route('admin.users.user.index');
-})->middleware(['auth'])->name('admin');
-
 Route::get('/dashboard', function () {
     return redirect()->route('admin.users.user.index');
 })->middleware(['auth'])->name('dashboard');

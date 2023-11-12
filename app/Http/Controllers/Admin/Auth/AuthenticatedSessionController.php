@@ -27,9 +27,8 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-        $urlDashboard = '/admin/users/user';
 
-        return redirect()->intended($urlDashboard)->with('success', 'Welcome, ' . Auth::user()->name . '!');
+        return redirect()->route('admin.users.user.index')->with('success', 'Welcome, ' . Auth::user()->name . '!');
     }
 
     /**
