@@ -68,21 +68,10 @@ class Guru extends Model
     public function setImageAttribute($value)
     {
         $attributeName = 'skl_ijazah';
-        $defaultPath = public_path('uploads');
-        $destinationPath = $defaultPath . '/gurus/skl_ijazah';
-
-        if (!file_exists($defaultPath)) {
-            mkdir($defaultPath, 0777, true);
-        }
-
-        if (!file_exists($destinationPath)) {
-            mkdir($destinationPath, 0777, true);
-        }
+        $destinationPath = 'uploads/gurus/skl_ijazah';
 
         if ($value) {
-            $image_name = time() . '.' . $value->getClientOriginalExtension();
-            $value->move($destinationPath, $image_name);
-            $this->attributes[$attributeName] = $destinationPath . '/' . $image_name;
+            $this->attributes[$attributeName] = $value->store($destinationPath);
         }
     }
 }

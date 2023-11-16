@@ -119,8 +119,19 @@ class UserController extends Controller
             $user->password = Hash::make($value['confirm_password']);
             $user->name = $value['name'];
             $user->role_id = $value['role_id'];
-            if ($request->hasFile('image')) {
-                $user->image = $request->file('image');
+            try {
+                if ($request->hasFile('image')) {
+                    $request->validate([
+                        'image' => 'mimes:jpeg,jpg,png|max:2048',
+                    ]);
+
+                    $user->image = $request->file('image');
+                }
+            } catch (\Exception $e) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Maks. ukuran gambar adalah 2 MB. ' . $e->getMessage(),
+                ], 422);
             }
 
             $generate_random_string = Str::random(40); // Generate random string
@@ -165,8 +176,19 @@ class UserController extends Controller
             $user->password = Hash::make($value['confirm_password']);
             $user->name = $value['name'];
             $user->role_id = $value['role_id'];
-            if ($request->hasFile('image')) {
-                $user->image = $request->file('image');
+            try {
+                if ($request->hasFile('image')) {
+                    $request->validate([
+                        'image' => 'mimes:jpeg,jpg,png|max:2048',
+                    ]);
+
+                    $user->image = $request->file('image');
+                }
+            } catch (\Exception $e) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Maks. ukuran gambar adalah 2 MB. ' . $e->getMessage(),
+                ], 422);
             }
 
             $generate_random_string = Str::random(40); // Generate random string

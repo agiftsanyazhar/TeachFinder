@@ -53,24 +53,21 @@ class GuruController extends Controller
         }
         $guru->lokasi_id = $lokasi_id;
 
-        if (isset($value['skl_ijazah']) && $value['skl_ijazah'] instanceof \Illuminate\Http\UploadedFile) {
-            $file = $value['skl_ijazah'];
-            $gurusPath = public_path('uploads');
-            $destinationPath = $gurusPath . '/gurus/skl_ijazah';
+        try {
+            if ($request->hasFile('skl_ijazah')) {
+                $request->validate([
+                    'skl_ijazah' => 'mimes:jpeg,jpg,png|max:2048',
+                ]);
 
-            if (!file_exists($gurusPath)) {
-                mkdir($gurusPath, 0777, true);
-            }
+                $destinationPath = 'uploads/gurus/skl_ijazah';
 
-            if (!file_exists($destinationPath)) {
-                mkdir($destinationPath, 0777, true);
+                $guru->skl_ijazah = $request->file('skl_ijazah')->store($destinationPath);
             }
-
-            if ($value) {
-                $image_name = time() . '.' . $file->getClientOriginalExtension();
-                $file->move($destinationPath, $image_name);
-                $guru->skl_ijazah = $destinationPath . '/' . $image_name;
-            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Maks. ukuran SKL/Ijazah adalah 2 MB. ' . $e->getMessage(),
+            ], 422);
         }
 
         if ($user->guru()->save($guru)) {
