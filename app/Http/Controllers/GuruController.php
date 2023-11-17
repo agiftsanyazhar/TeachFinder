@@ -88,21 +88,21 @@ class GuruController extends Controller
     {
         $guru = Guru::with('jadwal', 'lokasi', 'alamatGuru', 'user');
 
-        if ($request->has('mata_pelajaran_id')) {
+        if ($request->filled('mata_pelajaran_id')) {
             $mata_pelajaran_id = $request->input('mata_pelajaran_id');
             $guru->whereHas('jadwal', function ($query) use ($mata_pelajaran_id) {
                 $query->where('mata_pelajaran_id', $mata_pelajaran_id);
             });
         }
 
-        if ($request->has('jenjang_id')) {
+        if ($request->filled('jenjang_id')) {
             $jenjang_id = $request->input('jenjang_id');
             $guru->whereHas('jadwal', function ($query) use ($jenjang_id) {
                 $query->where('jenjang_id', $jenjang_id);
             });
         }
 
-        if ($request->has('lokasi_id')) {
+        if ($request->filled('lokasi_id')) {
             $lokasi_id = $request->input('lokasi_id');
             $guru->where('lokasi_id', $lokasi_id);
         }
@@ -110,13 +110,17 @@ class GuruController extends Controller
         $guruResults = $guru->get();
         $guru_data = $guruResults->map(function ($guru) {
             $averagePrice = $guru->jadwal->avg('harga');
-            $nama_mata_pelajaran = $guru->jadwal->first()->mataPelajaran->name;  // Accessing mataPelajaran relationship
+
+            $firstJadwal = $guru->jadwal->first();
+            $nama_mata_pelajaran = $firstJadwal ? $firstJadwal->mataPelajaran->name : null;
+
             $guru->nama_mata_pelajaran = $nama_mata_pelajaran;
             $ratingAverage = $guru->user->testimonialPenerima()->get()->avg('nilai');
             $testimonials = $guru->user->testimonialPenerima()->get();
             $guru->avgPrice = $averagePrice;
             $guru->ratingAverage = $ratingAverage;
             $guru->testimonials = $testimonials;
+
             return $guru;
         });
 

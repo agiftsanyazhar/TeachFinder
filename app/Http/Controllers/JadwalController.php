@@ -102,7 +102,7 @@ class JadwalController extends Controller
     public function show(string $id)
     {
         $jadwal = Jadwal::where('guru_id', $id)
-            ->with('guru', 'hari', 'mataPelajaran', 'jenjang')
+            ->with('guru', 'hari', 'mataPelajaran', 'jenjang', 'pesanan')
             ->get();
 
         if ($jadwal->isNotEmpty()) {
