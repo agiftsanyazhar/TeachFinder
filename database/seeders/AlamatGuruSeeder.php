@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\AlamatGuru;
+use App\Models\Lokasi;
 use Illuminate\Database\Seeder;
 
 class AlamatGuruSeeder extends Seeder
@@ -36,6 +37,30 @@ class AlamatGuruSeeder extends Seeder
             [
                 'guru_id' => 3,
                 'alamat' => 'Genteng Nomor 2',
+            ],
+            [
+                'guru_id' => rand(1, 10),
+                'alamat' => Lokasi::find(rand(1, 31))->name,
+            ],
+            [
+                'guru_id' => rand(1, 10),
+                'alamat' => Lokasi::find(rand(1, 31))->name,
+            ],
+            [
+                'guru_id' => rand(1, 10),
+                'alamat' => Lokasi::find(rand(1, 31))->name,
+            ],
+            [
+                'guru_id' => rand(1, 10),
+                'alamat' => Lokasi::find(rand(1, 31))->name,
+            ],
+            [
+                'guru_id' => rand(1, 10),
+                'alamat' => Lokasi::find(rand(1, 31))->name,
+            ],
+            [
+                'guru_id' => rand(1, 10),
+                'alamat' => Lokasi::find(rand(1, 31))->name,
             ],
         ];
 

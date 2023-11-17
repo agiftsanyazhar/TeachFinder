@@ -34,6 +34,48 @@ class PesananSeeder extends Seeder
                 'status' => 1,
                 'description' => 'Okee. Berang berang makan coklat. Brangkatt...',
             ],
+            [
+                'murid_id' => rand(1, 8),
+                'guru_id' => rand(1, 10),
+                'jadwal_id' => rand(1, 6),
+                'status' => rand(0, 1),
+            ],
+            [
+                'murid_id' => rand(1, 8),
+                'guru_id' => rand(1, 10),
+                'jadwal_id' => rand(1, 6),
+                'status' => rand(0, 1),
+            ],
+            [
+                'murid_id' => rand(1, 8),
+                'guru_id' => rand(1, 10),
+                'jadwal_id' => rand(1, 6),
+                'status' => rand(0, 1),
+            ],
+            [
+                'murid_id' => rand(1, 8),
+                'guru_id' => rand(1, 10),
+                'jadwal_id' => rand(1, 6),
+                'status' => rand(0, 1),
+            ],
+            [
+                'murid_id' => rand(1, 8),
+                'guru_id' => rand(1, 10),
+                'jadwal_id' => rand(1, 6),
+                'status' => rand(0, 1),
+            ],
+            [
+                'murid_id' => rand(1, 8),
+                'guru_id' => rand(1, 10),
+                'jadwal_id' => rand(1, 6),
+                'status' => rand(0, 1),
+            ],
+            [
+                'murid_id' => rand(1, 8),
+                'guru_id' => rand(1, 10),
+                'jadwal_id' => rand(1, 6),
+                'status' => rand(0, 1),
+            ],
         ];
 
         foreach ($pesanan as $item) {
