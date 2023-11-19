@@ -36,16 +36,6 @@ class Jadwal extends Model
     }
 
     /**
-     * Get the mataPelajaran that owns the Jadwal
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function mataPelajaran(): BelongsTo
-    {
-        return $this->belongsTo(MataPelajaran::class);
-    }
-
-    /**
      * Get the jenjang that owns the Jadwal
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

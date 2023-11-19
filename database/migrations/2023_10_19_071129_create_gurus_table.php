@@ -18,6 +18,10 @@ return new class extends Migration
             $table->string('phone');
             $table->longText('description')->nullable();
             $table->boolean('is_active')->default(0);
+            $table->foreignId('mata_pelajaran_id')
+                ->constrained('mata_pelajarans')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->foreignId('lokasi_id')
                 ->constrained('lokasis')
                 ->onUpdate('cascade')

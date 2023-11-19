@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\{
     BelongsTo,
     HasMany,
+    HasOne,
 };
 
 class Guru extends Model
@@ -53,6 +54,16 @@ class Guru extends Model
     public function jadwal(): HasMany
     {
         return $this->hasMany(Jadwal::class);
+    }
+
+    /**
+     * Get the mataPelajaran associated with the Guru
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function mataPelajaran(): HasOne
+    {
+        return $this->hasOne(MataPelajaran::class);
     }
 
     /**
