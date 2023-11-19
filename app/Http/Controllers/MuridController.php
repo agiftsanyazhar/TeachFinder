@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Jenjang;
 use App\Models\Murid;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class MuridController extends Controller
 {
@@ -42,7 +43,7 @@ class MuridController extends Controller
             return response()->json(['success' => false, 'message' => 'Telepon telah digunakan.', 'data' => null]);
         }
 
-        $murid->pin = $value['pin'];
+        $murid->pin = Hash::make(rand(111111, 999999));
         $jenjang = Jenjang::find($value['jenjang_id']);
         if ($jenjang) {
             $jenjang_id = $jenjang->id;

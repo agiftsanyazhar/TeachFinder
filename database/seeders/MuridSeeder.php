@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Lokasi;
 use App\Models\Murid;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class MuridSeeder extends Seeder
 {
@@ -18,7 +19,7 @@ class MuridSeeder extends Seeder
                 'name' => 'Murid1',
                 'email' => 'murid1@gmail.com',
                 'phone' => '628' . rand(111111111, 999999999),
-                'pin' => rand(111111, 999999),
+                'pin' => Hash::make(rand(111111, 999999)),
                 'jenjang_id' => rand(1, 3),
                 'alamat' => Lokasi::find(rand(1, 31))->name,
                 'user_id' => 5,
@@ -29,7 +30,7 @@ class MuridSeeder extends Seeder
                 'name' => 'Murid2',
                 'email' => 'murid2@gmail.com',
                 'phone' => '628' . rand(111111111, 999999999),
-                'pin' => rand(111111, 999999),
+                'pin' => Hash::make(rand(111111, 999999)),
                 'jenjang_id' => rand(1, 3),
                 'alamat' => Lokasi::find(rand(1, 31))->name,
                 'user_id' => 6,
@@ -40,7 +41,7 @@ class MuridSeeder extends Seeder
                 'name' => 'Murid3',
                 'email' => 'murid3@gmail.com',
                 'phone' => '628' . rand(111111111, 999999999),
-                'pin' => rand(111111, 999999),
+                'pin' => Hash::make(rand(111111, 999999)),
                 'jenjang_id' => rand(1, 3),
                 'alamat' => Lokasi::find(rand(1, 31))->name,
                 'user_id' => 7,
@@ -51,7 +52,7 @@ class MuridSeeder extends Seeder
                 'name' => 'Agiftsany Azhar',
                 'email' => 'agiftsanyazhar@gmail.com',
                 'phone' => '628' . rand(111111111, 999999999),
-                'pin' => rand(111111, 999999),
+                'pin' => Hash::make(rand(111111, 999999)),
                 'jenjang_id' => rand(1, 3),
                 'alamat' => Lokasi::find(rand(1, 31))->name,
                 'user_id' => 8,
@@ -62,7 +63,7 @@ class MuridSeeder extends Seeder
                 'name' => 'Cesil',
                 'email' => 'sesiliasj@gmail.com',
                 'phone' => '628' . rand(111111111, 999999999),
-                'pin' => rand(111111, 999999),
+                'pin' => Hash::make(rand(111111, 999999)),
                 'jenjang_id' => rand(1, 3),
                 'alamat' => Lokasi::find(rand(1, 31))->name,
                 'user_id' => 9,
@@ -73,7 +74,7 @@ class MuridSeeder extends Seeder
                 'name' => 'Ranidya',
                 'email' => 'ranidyaputri02@gmail.com',
                 'phone' => '628' . rand(111111111, 999999999),
-                'pin' => rand(111111, 999999),
+                'pin' => Hash::make(rand(111111, 999999)),
                 'jenjang_id' => rand(1, 3),
                 'alamat' => Lokasi::find(rand(1, 31))->name,
                 'user_id' => 10,
@@ -84,7 +85,7 @@ class MuridSeeder extends Seeder
                 'name' => 'Valentino Harpa',
                 'email' => 'valen.ginga@gmail.com',
                 'phone' => '628' . rand(111111111, 999999999),
-                'pin' => rand(111111, 999999),
+                'pin' => Hash::make(rand(111111, 999999)),
                 'jenjang_id' => rand(1, 3),
                 'alamat' => Lokasi::find(rand(1, 31))->name,
                 'user_id' => 11,
@@ -95,7 +96,7 @@ class MuridSeeder extends Seeder
                 'name' => 'Bintang',
                 'email' => 'Bintang@gmail.com',
                 'phone' => '628' . rand(111111111, 999999999),
-                'pin' => rand(111111, 999999),
+                'pin' => Hash::make(rand(111111, 999999)),
                 'jenjang_id' => rand(1, 3),
                 'alamat' => Lokasi::find(rand(1, 31))->name,
                 'user_id' => 12,
