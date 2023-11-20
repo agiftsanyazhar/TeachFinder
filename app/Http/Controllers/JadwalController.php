@@ -17,7 +17,7 @@ class JadwalController extends Controller
      */
     public function index()
     {
-        $jadwal = Jadwal::with('guru', 'hari', 'mataPelajaran', 'jenjang')->get();
+        $jadwal = Jadwal::with('guru', 'hari', 'jenjang')->get();
 
         return response()->json([
             'success' => true,
@@ -28,7 +28,7 @@ class JadwalController extends Controller
 
     public function filterJadwal(Request $request)
     {
-        $jadwal = Jadwal::with('guru', 'hari', 'mataPelajaran', 'jenjang');
+        $jadwal = Jadwal::with('guru', 'hari', 'jenjang');
 
         if ($request->has('mata_pelajaran_id')) {
             $mata_pelajaran_id = $request->input('mata_pelajaran_id');
@@ -102,7 +102,7 @@ class JadwalController extends Controller
     public function show(string $id)
     {
         $jadwal = Jadwal::where('guru_id', $id)
-            ->with('guru', 'hari', 'mataPelajaran', 'jenjang', 'pesanan')
+            ->with('guru', 'hari', 'jenjang', 'pesanan')
             ->get();
 
         if ($jadwal->isNotEmpty()) {
