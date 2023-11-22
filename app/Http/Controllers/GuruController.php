@@ -13,7 +13,7 @@ class GuruController extends Controller
      */
     public function index()
     {
-        $guru = Guru::with('jadwal', 'lokasi', 'alamatGuru', 'user')->get();
+        $guru = Guru::with('lokasi', 'user', 'pesanan', 'alamatGuru', 'mataPelajaran')->get();
 
         return response()->json([
             'success' => true,
@@ -33,25 +33,14 @@ class GuruController extends Controller
         $guru->email = $value['email'];
 
         $guru->phone = ($value['phone']) ?? '';
-        if ($guru->phone == '') {
-            return response()->json(['success' => false, 'message' => 'Telepon tidak boleh kosong.', 'data' => null]);
-        }
-
-        $check = Guru::where('phone', $guru->phone)->first();
-        if ($check != null) {
-            return response()->json(['success' => false, 'message' => 'Telepon telah digunakan.', 'data' => null]);
-        }
 
         $guru->is_active = 0;
 
+        $guru->is_verified = 1;
+
         $guru->lokasi_id = $value['lokasi_id'];
-        $lokasi = Lokasi::find($value['lokasi_id']);
-        if ($lokasi) {
-            $lokasi_id = $lokasi->id;
-        } else {
-            return response()->json(['success' => false, 'message' => 'Lokasi tidak tersedia.', 'data' => null]);
-        }
-        $guru->lokasi_id = $lokasi_id;
+
+        $guru->mata_pelajaran_id = $value['mata_pelajaran_id'];
 
         try {
             if ($request->hasFile('skl_ijazah')) {
@@ -86,11 +75,11 @@ class GuruController extends Controller
 
     public function filterGuru(Request $request)
     {
-        $guru = Guru::with('jadwal', 'lokasi', 'alamatGuru', 'user');
+        $guru = Guru::with('jadwal', 'lokasi', 'alamatGuru', 'user', 'mataPelajaran');
 
         if ($request->filled('mata_pelajaran_id')) {
             $mata_pelajaran_id = $request->input('mata_pelajaran_id');
-            $guru->whereHas('jadwal', function ($query) use ($mata_pelajaran_id) {
+            $guru->whereHas('mataPelajaran', function ($query) use ($mata_pelajaran_id) {
                 $query->where('mata_pelajaran_id', $mata_pelajaran_id);
             });
         }
@@ -112,9 +101,9 @@ class GuruController extends Controller
             $averagePrice = $guru->jadwal->avg('harga');
 
             $firstJadwal = $guru->jadwal->first();
-            $nama_mata_pelajaran = $firstJadwal ? $firstJadwal->mataPelajaran->name : null;
+            // $nama_mata_pelajaran = $firstJadwal ? $firstJadwal->mataPelajaran->name : null;
 
-            $guru->nama_mata_pelajaran = $nama_mata_pelajaran;
+            // $guru->nama_mata_pelajaran = $nama_mata_pelajaran;
             $ratingAverage = $guru->user->testimonialPenerima()->get()->avg('nilai');
             $testimonials = $guru->user->testimonialPenerima()->get();
             $guru->avgPrice = $averagePrice;
@@ -133,7 +122,7 @@ class GuruController extends Controller
     public function show(string $id)
     {
         $guru = Guru::where('user_id', $id)
-            ->with('lokasi', 'user', 'pesanan')
+            ->with('lokasi', 'user', 'pesanan', 'alamatGuru', 'mataPelajaran')
             ->get();
         if ($guru->isNotEmpty()) {
             return response()->json([

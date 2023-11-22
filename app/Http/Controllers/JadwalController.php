@@ -32,7 +32,9 @@ class JadwalController extends Controller
 
         if ($request->has('mata_pelajaran_id')) {
             $mata_pelajaran_id = $request->input('mata_pelajaran_id');
-            $jadwal->where('mata_pelajaran_id', $mata_pelajaran_id);
+            $jadwal->whereHas('guru', function ($query) use ($mata_pelajaran_id) {
+                $query->where('mata_pelajaran_id', $mata_pelajaran_id);
+            });
         }
 
         if ($request->has('jenjang_id')) {
@@ -64,7 +66,7 @@ class JadwalController extends Controller
         $guru = $request->get('guru');
         if ($guru) {
             $data = $request->only([
-                'name', 'guru_id', 'hari_id', 'mata_pelajaran_id',
+                'name', 'guru_id', 'hari_id',
                 'jenjang_id', 'waktu_mulai', 'waktu_akhir', 'harga'
             ]);
 
@@ -123,7 +125,7 @@ class JadwalController extends Controller
     {
         $jadwal = Jadwal::findOrFail($id);
         $data = $request->only([
-            'name', 'guru_id', 'hari_id', 'mata_pelajaran_id',
+            'name', 'guru_id', 'hari_id',
             'jenjang_id', 'waktu_mulai', 'waktu_akhir', 'harga'
         ]);
 

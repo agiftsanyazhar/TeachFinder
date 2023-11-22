@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\{
     User,
     Guru,
+    Lokasi,
+    MataPelajaran,
     Murid
 };
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -115,7 +118,7 @@ class UserController extends Controller
             $user = new User();
             $user->name = $value['name'];
             $user->email = $value['email'];
-            $user->email_verified = 0;
+            $user->email_verified = 1;
             $user->password = Hash::make($value['confirm_password']);
             $user->name = $value['name'];
             $user->role_id = $value['role_id'];
@@ -172,7 +175,7 @@ class UserController extends Controller
             $user = new User();
             $user->name = $value['name'];
             $user->email = $value['email'];
-            $user->email_verified = 0;
+            $user->email_verified = 1;
             $user->password = Hash::make($value['confirm_password']);
             $user->name = $value['name'];
             $user->role_id = $value['role_id'];
@@ -213,9 +216,25 @@ class UserController extends Controller
                 }
             }
 
+            if ($value['phone'] == '') {
+                return response()->json(['success' => false, 'message' => 'Telepon tidak boleh kosong.', 'data' => null]);
+            }
+
             $check = Guru::where('phone', $value['phone'])->first();
             if ($check != null) {
                 return response()->json(['success' => false, 'message' => 'Telepon telah digunakan.', 'data' => null]);
+            }
+
+            $lokasi = Lokasi::find($value['lokasi_id']);
+            if (!$lokasi) {
+                return response()->json(['success' => false, 'message' => 'Lokasi tidak tersedia.', 'data' => null]);
+            }
+
+
+            $pelajaran = MataPelajaran::find($value['mata_pelajaran_id']);
+            if (!$pelajaran) {
+                return response()->json(['success' => false, 'message' => 'Mata Pelajaran tidak tersedia.', 'data' => null]);
+            } else {
             }
 
             if ($user->save()) {

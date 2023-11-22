@@ -61,9 +61,9 @@ class Guru extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function mataPelajaran(): HasOne
+    public function mataPelajaran(): BelongsTo
     {
-        return $this->hasOne(MataPelajaran::class);
+        return $this->belongsTo(MataPelajaran::class);
     }
 
     /**

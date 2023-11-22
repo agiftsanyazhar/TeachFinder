@@ -107,7 +107,7 @@ class PesananController extends Controller
         foreach ($pesanan as $item) {
             $item->jadwal->hari->name;
             $item->murid->jenjang->name;
-            $item->jadwal->mataPelajaran->name;
+            $item->guru->mataPelajaran->name;
             $item->guru->lokasi->name;
         };
 
@@ -125,7 +125,7 @@ class PesananController extends Controller
         foreach ($pesanan as $item) {
             $item->jadwal->hari->name;
             $item->murid->jenjang->name;
-            $item->jadwal->mataPelajaran->name;
+            $item->guru->mataPelajaran->name;
             $item->guru->lokasi->name;
         };
 
