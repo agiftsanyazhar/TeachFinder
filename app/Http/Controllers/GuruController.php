@@ -100,7 +100,7 @@ class GuruController extends Controller
         $guru_data = $guruResults->map(function ($guru) {
             $averagePrice = $guru->jadwal->avg('harga');
 
-            $firstJadwal = $guru->jadwal->first();
+            // $firstJadwal = $guru->jadwal->first();
             // $nama_mata_pelajaran = $firstJadwal ? $firstJadwal->mataPelajaran->name : null;
 
             // $guru->nama_mata_pelajaran = $nama_mata_pelajaran;

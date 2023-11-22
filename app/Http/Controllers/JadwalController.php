@@ -28,21 +28,21 @@ class JadwalController extends Controller
 
     public function filterJadwal(Request $request)
     {
-        $jadwal = Jadwal::with('guru', 'hari', 'jenjang');
+        $jadwal = Jadwal::with('guru.mataPelajaran', 'hari', 'jenjang');
 
-        if ($request->has('mata_pelajaran_id')) {
+        if ($request->filled('mata_pelajaran_id')) {
             $mata_pelajaran_id = $request->input('mata_pelajaran_id');
-            $jadwal->whereHas('guru', function ($query) use ($mata_pelajaran_id) {
+            $jadwal->whereHas('guru.mataPelajaran', function ($query) use ($mata_pelajaran_id) {
                 $query->where('mata_pelajaran_id', $mata_pelajaran_id);
             });
         }
 
-        if ($request->has('jenjang_id')) {
+        if ($request->filled('jenjang_id')) {
             $jenjang_id = $request->input('jenjang_id');
             $jadwal->where('jenjang_id', $jenjang_id);
         }
 
-        if ($request->has('lokasi_id')) {
+        if ($request->filled('lokasi_id')) {
             $lokasi_id = $request->input('lokasi_id');
             $jadwal->whereHas('guru', function ($query) use ($lokasi_id) {
                 $query->where('lokasi_id', $lokasi_id);
@@ -57,6 +57,7 @@ class JadwalController extends Controller
             return response()->json(['success' => true, 'message' => 'Jadwal not found with your filter', 'data' => $jadwalResults]);
         }
     }
+
 
     /**
      * Store a newly created resource in storage.

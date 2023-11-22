@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('pesanan')->name('pesanan.')->group(function () {
     Route::get('/', [PesananController::class, 'index'])->name('index');
-    Route::get('/pesanan-guru/{id}', [PesananController::class, 'pesananGuru'])->name('pesananGuru');
-    Route::get('/pesanan-siswa/{id}', [PesananController::class, 'pesananSiswa'])->name('pesananSiswa');
+    Route::get('/pesanan-guru', [PesananController::class, 'pesananGuru'])->name('pesananGuru');
+    Route::get('/pesanan-siswa', [PesananController::class, 'pesananSiswa'])->name('pesananSiswa');
     Route::post('/store', [PesananController::class, 'store'])->name('store');
     Route::post('/store-array', [PesananController::class, 'storeArray'])->name('storeArray');
     Route::post('/update/{id}', [PesananController::class, 'update'])->name('update');

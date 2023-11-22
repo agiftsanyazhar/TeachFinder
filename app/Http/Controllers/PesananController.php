@@ -23,7 +23,7 @@ class PesananController extends Controller
         $pesanan->each(function ($item) {
             $item->jadwal->hari->name;
             $item->murid->jenjang->name;
-            $item->jadwal->mataPelajaran->name;
+            $item->guru->mataPelajaran->name;
         });
 
         return response()->json([
@@ -98,40 +98,68 @@ class PesananController extends Controller
     /**
      * Display the specified resource.
      */
-    public function pesananGuru(string $id)
+    public function pesananGuru(Request $request)
     {
-        $pesanan = Pesanan::where('guru_id', $id)->with('murid', 'guru', 'jadwal')
-            ->orderBy('created_at')
-            ->get();
+        $pesanan = Pesanan::where('guru_id', $request->input('id'))->with('murid', 'guru', 'jadwal');
+        try {
+            if ($request->filled('status')) {
+                $status = $request->input('status');
+                $pesanan->where('status', $status);
+            }
 
-        foreach ($pesanan as $item) {
-            $item->jadwal->hari->name;
-            $item->murid->jenjang->name;
-            $item->guru->mataPelajaran->name;
-            $item->guru->lokasi->name;
-        };
+            $pesananResults = $pesanan->orderBy('created_at')->get();
+            foreach ($pesananResults as $item) {
+                $item->jadwal->hari->name;
+                $item->murid->jenjang->name;
+                $item->guru->mataPelajaran->name;
+                $item->guru->lokasi->name;
 
-        return response()->json([
-            'data' => $pesanan,
-        ], 200);
+                // You might want to do something with these values, or you can remove these lines if not needed.
+            }
+
+            return response()->json([
+                'data' => $pesananResults,
+            ], 200);
+        } catch (\Exception $e) {
+            // Catch and handle any exceptions
+            return response()->json([
+                'error' => 'Error fetching pesanan data',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 
-    public function pesananSiswa(string $id)
+    public function pesananSiswa(Request $request)
     {
-        $pesanan = Pesanan::where('murid_id', $id)->with('murid', 'guru', 'jadwal')
-            ->orderBy('created_at')
-            ->get();
+        try {
+            $pesanan = Pesanan::where('murid_id', $request->input('id'))->with('murid', 'guru', 'jadwal');
 
-        foreach ($pesanan as $item) {
-            $item->jadwal->hari->name;
-            $item->murid->jenjang->name;
-            $item->guru->mataPelajaran->name;
-            $item->guru->lokasi->name;
-        };
+            if ($request->filled('status')) {
+                $status = $request->input('status');
+                $pesanan->where('status', $status);
+            }
 
-        return response()->json([
-            'data' => $pesanan,
-        ], 200);
+            $pesananResults = $pesanan->orderBy('created_at')->get();
+
+            foreach ($pesananResults as $item) {
+                $item->jadwal->hari->name;
+                $item->murid->jenjang->name;
+                $item->guru->mataPelajaran->name;
+                $item->guru->lokasi->name;
+
+                // You might want to do something with these values, or you can remove these lines if not needed.
+            }
+
+            return response()->json([
+                'data' => $pesananResults,
+            ], 200);
+        } catch (\Exception $e) {
+            // Catch and handle any exceptions
+            return response()->json([
+                'error' => 'Error fetching pesanan data',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     /**
