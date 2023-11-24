@@ -42,6 +42,11 @@ class JadwalController extends Controller
             $jadwal->where('jenjang_id', $jenjang_id);
         }
 
+        if ($request->filled('guru_id')) {
+            $guru_id = $request->input('guru_id');
+            $jadwal->where('guru_id', $guru_id);
+        }
+
         if ($request->filled('lokasi_id')) {
             $lokasi_id = $request->input('lokasi_id');
             $jadwal->whereHas('guru', function ($query) use ($lokasi_id) {
