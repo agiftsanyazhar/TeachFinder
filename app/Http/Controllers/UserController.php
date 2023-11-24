@@ -9,9 +9,12 @@ use App\Models\{
     MataPelajaran,
     Murid
 };
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -79,7 +82,7 @@ class UserController extends Controller
                     if (Hash::check($password, $user->password)) {
                         if ($user->email_verified == 0) {
                             $result["success"] = true;
-                            $result["message"] = "Akun anda belum aktif. Masukkan Kode OTP Anda terlebih dahulu untuk mengaktifkan.";
+                            $result["message"] = "Akun anda belum aktif. Silakan cek email Anda.";
                             unset($user->password);
                             $result["user"] = $user;
                         } else {
@@ -136,7 +139,6 @@ class UserController extends Controller
             $user = new User();
             $user->name = $value['name'];
             $user->email = $value['email'];
-            $user->email_verified = 1;
             $user->password = Hash::make($value['confirm_password']);
             $user->name = $value['name'];
             $user->role_id = $value['role_id'];
@@ -185,6 +187,7 @@ class UserController extends Controller
 
             if ($user->save()) {
                 $muridController = new MuridController();
+                $this->sendEmailverify($request);
                 return $muridController->store($request, $user, $value);
             } else {
                 return response()->json(['success' => false, 'message' => 'Gagal membuat akun.', 'data' => null]);
@@ -193,7 +196,6 @@ class UserController extends Controller
             $user = new User();
             $user->name = $value['name'];
             $user->email = $value['email'];
-            $user->email_verified = 1;
             $user->password = Hash::make($value['confirm_password']);
             $user->name = $value['name'];
             $user->role_id = $value['role_id'];
@@ -264,5 +266,64 @@ class UserController extends Controller
         } else {
             return response()->json(['success' => false, 'message' => 'Role tidak ditemukan.', 'data' => null]);
         }
+    }
+
+    private function sendEmailverify($request)
+    {
+        try {
+            $user = User::where('email', $request->email)->first();
+
+            $token = Str::random(128);
+
+            DB::table('password_reset_tokens')->insert([
+                'email' => $request->email,
+                'token' => $token,
+                'created_at' => Carbon::now()
+            ]);
+
+            Mail::send('mails.send-email-verify', [
+                'name' => $user->name,
+                'email' => $request->email,
+                'token' => $token
+            ], function ($message) use ($request) {
+                $message->to($request->email);
+                $message->subject('Verifikasi Akun Anda');
+            });
+
+            $success = true;
+            $message = 'Success';
+            $code = 200;
+        } catch (\Exception $e) {
+            $success = 'danger';
+            $message = $e->getMessage();
+            $code = 422;
+            Log::error($e->getMessage());
+        }
+
+        return response()->json([
+            $success => false,
+            $message => $message,
+        ], $code);
+    }
+
+    public function submitEmailverify(Request $request)
+    {
+        DB::table('password_reset_tokens')
+            ->where([
+                'email' => $request->email,
+                'token' => $request->token
+            ])
+            ->first();
+
+        User::where([
+            'email' => $request->email,
+        ])->update([
+            'email_verified' => 1,
+            'email_verified_at' => Carbon::now(),
+        ]);
+
+        DB::table('password_reset_tokens')->where(['email' => $request->email])->delete();
+
+        return view('success');
     }
 }

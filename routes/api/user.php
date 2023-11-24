@@ -20,3 +20,7 @@ Route::prefix('user')->name('user.')->group(function () {
     Route::post('/login', [UserController::class, 'login'])->name('login');
     Route::post('/register', [UserController::class, 'register'])->name('register');
 });
+
+Route::post('/send-email-verify/{token}', [UserController::class, 'submitEmailverify'])
+    ->middleware('guest')
+    ->name('send-email-verify');
