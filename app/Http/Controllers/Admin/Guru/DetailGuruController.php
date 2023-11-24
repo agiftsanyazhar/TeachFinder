@@ -9,7 +9,6 @@ use App\Models\{
     Hari,
     Jadwal,
     Jenjang,
-    MataPelajaran,
 };
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{
@@ -35,7 +34,6 @@ class DetailGuruController extends Controller
             $data['jadwals'] = Jadwal::where('guru_id', $guru->id)->orderBy('hari_id')->get();
 
             $data['listHari'] = Hari::get();
-            $data['listMataPelajaran'] = MataPelajaran::orderBy('name')->get();
             $data['listJenjang'] = Jenjang::get();
 
             return view('admin.users.guru.detail', $data);
@@ -56,6 +54,7 @@ class DetailGuruController extends Controller
         try {
             $request->validate([
                 'alamat' => 'required|string|unique:alamat_gurus,alamat',
+                'guru_id' => 'required|integer',
             ]);
 
             AlamatGuru::create($data);
@@ -75,14 +74,13 @@ class DetailGuruController extends Controller
     public function storeJadwal(Request $request)
     {
         $data = $request->only([
-            'name', 'mata_pelajaran_id', 'jenjang_id', 'hari_id', 'waktu_mulai',
+            'name', 'jenjang_id', 'hari_id', 'waktu_mulai',
             'waktu_akhir', 'harga', 'guru_id',
         ]);
 
         try {
             $request->validate([
                 'name' => 'required|string|unique:jadwals,name',
-                'mata_pelajaran_id' => 'required|integer',
                 'jenjang_id' => 'required|integer',
                 'hari_id' => 'required|integer',
                 'waktu_mulai' => 'required',
@@ -134,7 +132,7 @@ class DetailGuruController extends Controller
     {
         $jadwal = Jadwal::where(['guru_id' => $guru_id, 'id' => $request->id])->firstOrFail();
         $data = $request->only([
-            'name', 'mata_pelajaran_id', 'jenjang_id', 'hari_id', 'waktu_mulai',
+            'name', 'jenjang_id', 'hari_id', 'waktu_mulai',
             'waktu_akhir', 'harga', 'guru_id',
         ]);
 
@@ -143,7 +141,6 @@ class DetailGuruController extends Controller
         try {
             $request->validate([
                 'name' => 'required|string|unique:jadwals,name',
-                'mata_pelajaran_id' => 'required|integer',
                 'jenjang_id' => 'required|integer',
                 'hari_id' => 'required|integer',
                 'waktu_mulai' => 'required',

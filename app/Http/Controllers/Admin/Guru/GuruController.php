@@ -8,6 +8,7 @@ use App\Models\{
     Guru,
     Jadwal,
     Lokasi,
+    MataPelajaran,
     User,
 };
 use Illuminate\Http\Request;
@@ -20,6 +21,13 @@ use Illuminate\Support\Str;
 
 class GuruController extends Controller
 {
+    private $uploadPath;
+
+    public function __construct()
+    {
+        $this->uploadPath = 'uploads/gurus/skl_ijazah';
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -28,6 +36,7 @@ class GuruController extends Controller
         $data['title'] = 'Guru';
 
         $data['listLokasi'] = Lokasi::orderBy('name')->get();
+        $data['listMataPelajaran'] = MataPelajaran::orderBy('name')->get();
         $data['gurus'] = Guru::get();
 
         return view('admin.users.guru.index', $data);
@@ -36,7 +45,7 @@ class GuruController extends Controller
     public function store(Request $request)
     {
         $data = $request->only([
-            'name', 'lokasi_id', 'phone', 'email', 'password', 'description',
+            'name', 'lokasi_id', 'phone', 'mata_pelajaran_id', 'email', 'password', 'description',
             'image', 'skl_ijazah'
         ]);
 
@@ -45,11 +54,12 @@ class GuruController extends Controller
                 'name' => 'required|string',
                 'lokasi_id' => 'required|integer',
                 'phone' => 'required|string|unique:gurus,phone|unique:murids,phone',
+                'mata_pelajaran_id' => 'required|integer',
                 'email' => 'required|email:rfc,dns|unique:users,email|unique:gurus,email|unique:murids,email',
-                'password' => 'required|min:6',
+                'password' => 'required|min:8',
                 'description' => 'string',
-                'image' => 'mimes:jpeg,jpg,png',
-                'skl_ijazah' => 'mimes:jpeg,jpg,png',
+                'image' => 'mimes:jpeg,jpg,png|max:2048',
+                'skl_ijazah' => 'mimes:jpeg,jpg,png|max:2048',
             ]);
 
             $user = new User();
@@ -67,7 +77,8 @@ class GuruController extends Controller
             }
 
             if ($request->hasFile('skl_ijazah')) {
-                $data['skl_ijazah'] = $request->file('skl_ijazah');
+                $sklIjazah = $request->file('skl_ijazah');
+                $data['skl_ijazah'] = $sklIjazah->store($this->uploadPath);
             }
 
             $user->save();
@@ -92,7 +103,7 @@ class GuruController extends Controller
     {
         $guru = Guru::findOrFail($request->id);
         $data = $request->only([
-            'name', 'lokasi_id', 'phone', 'email',  'description', 'skl_ijazah'
+            'name', 'lokasi_id', 'phone', 'mata_pelajaran_id', 'email',  'description', 'skl_ijazah'
         ]);
 
         try {
@@ -100,13 +111,15 @@ class GuruController extends Controller
                 'name' => 'required|string',
                 'lokasi_id' => 'required|integer',
                 'phone' => 'required|string|unique:gurus,phone|unique:murids,phone',
+                'mata_pelajaran_id' => 'required|integer',
                 'email' => 'required|email:rfc,dns|unique:users,email|unique:gurus,email|unique:murids,email',
                 'description' => 'string',
-                'skl_ijazah' => 'mimes:jpeg,jpg,png',
+                'skl_ijazah' => 'mimes:jpeg,jpg,png|max:2048',
             ]);
 
             if ($request->hasFile('skl_ijazah')) {
-                $data['skl_ijazah'] = $request->file('skl_ijazah');
+                $sklIjazah = $request->file('skl_ijazah');
+                $data['skl_ijazah'] = $sklIjazah->store($this->uploadPath);
             }
 
             $guru->update($data);

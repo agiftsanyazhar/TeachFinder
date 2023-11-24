@@ -45,7 +45,7 @@ class MuridController extends Controller
                 'name' => 'required|string',
                 'jenjang_id' => 'required|integer',
                 'email' => 'required|email:rfc,dns|unique:users,email|unique:gurus,email|unique:murids,email',
-                'password' => 'required|min:6',
+                'password' => 'required|min:8',
                 'alamat' => 'required|string',
             ]);
 

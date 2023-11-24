@@ -33,6 +33,7 @@
                                     <th scope="col">Name</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Phone</th>
+                                    <th scope="col">Subject</th>
                                     <th scope="col">Description</th>
                                     <th scope="col">is Active?</th>
                                     <th scope="col">Location</th>
@@ -53,6 +54,7 @@
                                         <td>{{ $guru->name }}</td>
                                         <td>{{ $guru->email }}</td>
                                         <td><a href="{{ url('https://wa.me/+' . $guru->phone) }}" target="_blank" rel="noopener noreferrer">{{ $guru->phone }}</a></td>
+                                        <td>{{ $guru->mataPelajaran->name }}</td>
                                         <td>{{ Str::limit($guru->description, 50) ?: '-' }}</td>
                                         <td>{{ $guru->is_active == 1 ? 'Online' : 'Offline' }}</td>
                                         <td>{{ $guru->lokasi->name }}</td>
@@ -80,7 +82,7 @@
                                                 <a href="{{ route('admin.users.guru.detail.index', $guru->id) }}" class="btn btn-primary text-white ms-1 me-1"><i class="bi bi-eye"></i></a>
                                                 <button type="button" class="btn btn-warning text-white" data-bs-toggle="modal"
                                                     data-bs-target="#modalForm"
-                                                    onclick="openFormDialog('modalForm', 'edit', '{{ $guru->id }}', '{{ $guru->name }}', '{{ $guru->email }}', '{{ $guru->phone }}', '{{ $guru->lokasi_id }}', '{{ $guru->description }}')">
+                                                    onclick="openFormDialog('modalForm', 'edit', '{{ $guru->id }}', '{{ $guru->name }}', '{{ $guru->email }}', '{{ $guru->phone }}', '{{ $guru->mata_pelajaran_id }}', '{{ $guru->lokasi_id }}', '{{ $guru->description }}')">
                                                     <i class="bi bi-pencil-square"></i>
                                                 </button>
                                                 <a href="{{ route('admin.users.guru.destroy', $guru->id) }}" class="btn btn-danger text-white ms-1 me-1"><i class="bi bi-trash"></i></a>
@@ -111,18 +113,27 @@
                 <div class="modal-body">
                     <form class="row g-3" id="formModal" action="{{ route('admin.users.guru.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-4 mb-3">
                             <input class="form-control clear-after mb-3" type="hidden" placeholder="ID" name="id"
                                 aria-label="default input example">
                             <label class="form-label"><b>Name</b><span class="text-danger text-bold"><b>*</b></span></label>
                             <input class="form-control" type="text" placeholder="Teacher Name" name="name" required>
                         </div>
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-4 mb-3">
                             <label class="form-label"><b>Location</b><span class="text-danger text-bold"><b>*</b></span></label>
                             <select class="form-select mb-3" aria-label="Default select example" name="lokasi_id" required>
                                 <option value="" disabled selected hidden>Teacher Location</option>
                                 @foreach($listLokasi as $lokasi)
                                     <option value="{{ $lokasi->id }}">{{ $lokasi->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label"><b>Subject</b><span class="text-danger text-bold"><b>*</b></span></label>
+                            <select class="form-select mb-3" aria-label="Default select example" name="mata_pelajaran_id">
+                                <option value="" disabled selected hidden>Subject</option>
+                                @foreach($listMataPelajaran as $mataPelajaran)
+                                    <option value="{{ $mataPelajaran->id }}">{{ $mataPelajaran->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -167,13 +178,14 @@
             document.getElementById('formModal').submit();
         }
 
-        function openFormDialog(target, type, id, name, email, phone, lokasi_id, description ) {
+        function openFormDialog(target, type, id, name, email, mata_pelajaran_id, phone, lokasi_id, description ) {
             if (type === 'add') {
                 $('#' + target + ' form').attr('action', '{{ route('admin.users.guru.store') }}');
                 $('#' + target + ' .form-control').val('');
                 $('#' + target + ' input[name="name"]');
                 $('#' + target + ' input[name="email"]');
                 $('#' + target + ' input[name="phone"]');
+                $('#' + target + ' select[name="mata_pelajaran_id"]');
                 $('#' + target + ' select[name="lokasi_id"]');
                 $('#' + target + ' textarea[name="description"]');
             } else if (type === 'edit') {

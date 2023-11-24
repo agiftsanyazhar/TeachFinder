@@ -84,7 +84,6 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Day</th>
                                     <th scope="col">Name</th>
-                                    <th scope="col">Subject</th>
                                     <th scope="col">Level</th>
                                     <th scope="col">Time</th>
                                     <th scope="col">Price</th>
@@ -104,14 +103,13 @@
                                                 <td rowspan="{{ $rowspan }}">{{ $day }}</td>
                                             @endif
                                             <td>{{ $jadwal->name }}</td>
-                                            <td>{{ $jadwal->mataPelajaran->name }}</td>
                                             <td>{{ $jadwal->jenjang->name }}</td>
                                             <td>{{ $jadwal->waktu_mulai }} - {{ $jadwal->waktu_akhir }}</td>
                                             <td>Rp {{ number_format($jadwal->harga, 2, ',', '.') }}</td>
                                             <td>
                                                 <button type="button" class="btn btn-warning text-white" data-bs-toggle="modal"
                                                 data-bs-target="#modalFormJadwal"
-                                                onclick="openFormDialogJadwal('modalFormJadwal', 'edit', '{{ $jadwal->id }}', '{{ $jadwal->day }}' '{{ $jadwal->name }}', '{{ $jadwal->mataPelajaran }}', '{{ $jadwal->jenjang }}', '{{ $jadwal->waktu_mulai }}', '{{ $jadwal->waktu_akhir }}', '{{ $jadwal->harga }}', '{{ $jadwal->guru_id }}')">
+                                                onclick="openFormDialogJadwal('modalFormJadwal', 'edit', '{{ $jadwal->id }}', '{{ $jadwal->day }}' '{{ $jadwal->name }}', '{{ $jadwal->jenjang }}', '{{ $jadwal->waktu_mulai }}', '{{ $jadwal->waktu_akhir }}', '{{ $jadwal->harga }}', '{{ $jadwal->guru_id }}')">
                                                 <i class="bi bi-pencil-square"></i>
                                             </button>
                                             <a href="{{ route('admin.users.guru.detail.destroy-jadwal', ['guru_id' => $jadwal->guru_id, 'id' => $jadwal->id]) }}" class="btn btn-danger text-white ms-1 me-1"><i class="bi bi-trash"></i></a>
@@ -184,15 +182,6 @@
                             <input class="form-control" type="text" placeholder="Name" name="name" required>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label class="form-label"><b>Subject</b><span class="text-danger text-bold"><b>*</b></span></label>
-                            <select class="form-select mb-3" aria-label="Default select example" name="mata_pelajaran_id">
-                                <option value="" disabled selected hidden>Subject</option>
-                                @foreach($listMataPelajaran as $mataPelajaran)
-                                    <option value="{{ $mataPelajaran->id }}">{{ $mataPelajaran->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-md-4 mb-3">
                             <label class="form-label"><b>Level</b><span class="text-danger text-bold"><b>*</b></span></label>
                             <select class="form-select mb-3" aria-label="Default select example" name="jenjang_id">
                                 <option value="" disabled selected hidden>Level</option>
@@ -241,7 +230,7 @@
             form.submit();
         });
 
-        function openFormDialogAlamatGuru(target, type, id, name, guru_id) {
+        function openFormDialogAlamatGuru(target, type, id, name, alamat, guru_id) {
             if (type === 'add') {
                 $('#' + target + ' form').attr('action', '{{ route('admin.users.guru.detail.store-alamat-guru', ['guru_id' => 'guru_id']) }}');
                 $('#' + target + ' .form-control').val('');
@@ -259,7 +248,7 @@
             $('#' + target).attr('data-operation-type', type);
         }
 
-        function openFormDialogJadwal(target, type, id, day, name, mataPelajaran, jenjang, waktu_mulai, waktu_akhir, harga, guru_id) {
+        function openFormDialogJadwal(target, type, id, day, name, jenjang, waktu_mulai, waktu_akhir, harga, guru_id) {
             if (type === 'add') {
                 $('#' + target + ' form').attr('action', '{{ route('admin.users.guru.detail.store-jadwal', ['guru_id' => 'guru_id']) }}');
                 $('#' + target + ' .form-control').val('');
