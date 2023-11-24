@@ -145,7 +145,7 @@ class UserController extends Controller
             if ($value['confirm_password'] != $value['password']) {
                 return response()->json(['success' => false, 'message' => 'Password tidak sama.', 'data' => null]);
             }
-            if (strlen($value['password']) < 6) {
+            if (strlen($value['password']) < 8) {
                 return response()->json(['success' => false, 'message' => 'Password minimal 6 karakter.', 'data' => null]);
             }
 
@@ -201,7 +201,7 @@ class UserController extends Controller
             if ($value['confirm_password'] != $value['password']) {
                 return response()->json(['success' => false, 'message' => 'Password tidak sama.', 'data' => null]);
             }
-            if (strlen($value['password']) < 6) {
+            if (strlen($value['password']) < 8) {
                 return response()->json(['success' => false, 'message' => 'Password minimal 6 karakter.', 'data' => null]);
             }
 
