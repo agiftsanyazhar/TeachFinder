@@ -11,6 +11,7 @@ use App\Models\{
 };
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -113,6 +114,23 @@ class UserController extends Controller
     public function register(Request $request)
     {
         $value = $request->all();
+
+        try {
+            $request->validate([
+                'name' => 'string',
+                'email' => 'email:rfc,dns|indisposable',
+                'phone' => 'min:12',
+                'alamat' => 'string',
+                'description' => 'string',
+            ]);
+        } catch (\Exception $e) {
+            Log::debug($e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 422);
+        }
 
         if ($value['role_id'] == 3) {
             $user = new User();

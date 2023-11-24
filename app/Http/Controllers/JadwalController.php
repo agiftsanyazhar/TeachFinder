@@ -78,9 +78,10 @@ class JadwalController extends Controller
 
             try {
                 $request->validate([
+                    'name' => 'required|string|unique:jadwals,name',
                     'waktu_mulai' => 'required|string',
                     'waktu_akhir' => 'required|string',
-                    'harga' => 'required|integer',
+                    'harga' => 'required|integer|between:10000,999999',
                 ]);
 
                 Jadwal::create($data);
@@ -137,9 +138,10 @@ class JadwalController extends Controller
 
         try {
             $request->validate([
+                'name' => 'required|string|unique:jadwals,name',
                 'waktu_mulai' => 'required|string',
                 'waktu_akhir' => 'required|string',
-                'harga' => 'required|integer',
+                'harga' => 'required|integer|between:10000,999999',
             ]);
 
             $jadwal->update($data);
