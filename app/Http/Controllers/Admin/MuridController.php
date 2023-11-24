@@ -38,7 +38,7 @@ class MuridController extends Controller
             'name', 'jenjang_id', 'phone', 'email', 'password', 'alamat',
         ]);
 
-        $data['pin'] = rand(100000, 999999);
+        $data['pin'] = Hash::make(rand(111111, 999999));
 
         try {
             $request->validate([
