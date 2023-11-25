@@ -34,6 +34,7 @@
           <tr>
             <td style="padding:20px 40px; ">
               <p style="margin:0; font-size:18px; font-family:Inter,sans-serif; color:#212529; font-style:normal; font-weight:600; ">Halo {{ $name }},</p>
+              <p style="margin:0; font-size:16px; font-family:Inter,sans-serif; color:#212529; font-style:normal; font-weight:500; ">{{ $email }}</p>
 
               <p style="margin:30px 0 0 0; font-size:16px; font-family:Inter,sans-serif; color:#212529; font-style:normal; font-weight:500; ">
                 Silakan verifikasi akun Anda terlebih dahulu.

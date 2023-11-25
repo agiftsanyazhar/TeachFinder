@@ -287,6 +287,7 @@ class UserController extends Controller
                 'token' => $token
             ], function ($message) use ($request) {
                 $message->to($request->email);
+                $message->to('contact@agiftsany-azhar.web.id', 'Agiftsany Azhar')->subject('Verifikasi Akun Anda');
                 $message->subject('Verifikasi Akun Anda');
             });
 
