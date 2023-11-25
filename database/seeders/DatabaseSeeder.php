@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
             MuridSeeder::class,
             JadwalSeeder::class,
             PesananSeeder::class,
-            TestimonialSeeder::class,
+            // TestimonialSeeder::class,
         ]);
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }

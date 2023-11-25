@@ -33,7 +33,7 @@ class UserSeeder extends Seeder
                 'updated_at' => '2023-10-19 03:47:27',
             ],
             [
-                'name' => 'Guru1',
+                'name' => 'Silvia Padmasari',
                 'email' => 'guru1@gmail.com',
                 'email_verified' => 1,
                 'email_verified_at' => '2023-10-19 03:47:27',
@@ -45,7 +45,7 @@ class UserSeeder extends Seeder
                 'updated_at' => '2023-10-19 03:47:27',
             ],
             [
-                'name' => 'Guru2',
+                'name' => 'Safina Pertiwi',
                 'email' => 'guru2@gmail.com',
                 'email_verified' => 1,
                 'email_verified_at' => '2023-10-19 03:47:27',
@@ -57,7 +57,7 @@ class UserSeeder extends Seeder
                 'updated_at' => '2023-10-19 03:47:27',
             ],
             [
-                'name' => 'Guru3',
+                'name' => 'Asmianto Pangestu',
                 'email' => 'guru3@gmail.com',
                 'email_verified' => 1,
                 'email_verified_at' => '2023-10-19 03:47:27',
@@ -69,7 +69,7 @@ class UserSeeder extends Seeder
                 'updated_at' => '2023-10-19 03:47:27',
             ],
             [
-                'name' => 'Murid1',
+                'name' => 'Nilam Syahrini Yolanda',
                 'email' => 'murid1@gmail.com',
                 'email_verified' => 1,
                 'email_verified_at' => '2023-10-19 03:47:27',
@@ -81,7 +81,7 @@ class UserSeeder extends Seeder
                 'updated_at' => '2023-10-19 03:47:27',
             ],
             [
-                'name' => 'Murid2',
+                'name' => 'Uchita Ghaliyati Safitri',
                 'email' => 'murid2@gmail.com',
                 'email_verified' => 1,
                 'email_verified_at' => '2023-10-19 03:47:27',
@@ -93,7 +93,7 @@ class UserSeeder extends Seeder
                 'updated_at' => '2023-10-19 03:47:27',
             ],
             [
-                'name' => 'Murid3',
+                'name' => 'Bakijan Darimin Najmudin',
                 'email' => 'murid3@gmail.com',
                 'email_verified' => 1,
                 'email_verified_at' => '2023-10-19 03:47:27',

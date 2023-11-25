@@ -15,7 +15,7 @@ class GuruSeeder extends Seeder
     {
         $guru = [
             [
-                'name' => 'Guru1',
+                'name' => 'Silvia Padmasari',
                 'email' => 'guru1@gmail.com',
                 'phone' => '628' . rand(111111111, 999999999),
                 'mata_pelajaran_id' => rand(1, 16),
@@ -27,7 +27,7 @@ class GuruSeeder extends Seeder
                 'updated_at' => '2023-10-19 03:47:27',
             ],
             [
-                'name' => 'Guru2',
+                'name' => 'Safina Pertiwi',
                 'email' => 'guru2@gmail.com',
                 'phone' => '628' . rand(111111111, 999999999),
                 'mata_pelajaran_id' => rand(1, 16),
@@ -39,7 +39,7 @@ class GuruSeeder extends Seeder
                 'updated_at' => '2023-10-19 03:47:27',
             ],
             [
-                'name' => 'Guru3',
+                'name' => 'Asmianto Pangestu',
                 'email' => 'guru3@gmail.com',
                 'phone' => '628' . rand(111111111, 999999999),
                 'mata_pelajaran_id' => rand(1, 16),

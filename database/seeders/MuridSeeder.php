@@ -16,7 +16,7 @@ class MuridSeeder extends Seeder
     {
         $murid = [
             [
-                'name' => 'Murid1',
+                'name' => 'Nilam Syahrini Yolanda',
                 'email' => 'murid1@gmail.com',
                 'phone' => '628' . rand(111111111, 999999999),
                 'pin' => Hash::make(rand(111111, 999999)),
@@ -27,7 +27,7 @@ class MuridSeeder extends Seeder
                 'updated_at' => '2023-10-19 03:47:27',
             ],
             [
-                'name' => 'Murid2',
+                'name' => 'Uchita Ghaliyati Safitri',
                 'email' => 'murid2@gmail.com',
                 'phone' => '628' . rand(111111111, 999999999),
                 'pin' => Hash::make(rand(111111, 999999)),
@@ -38,7 +38,7 @@ class MuridSeeder extends Seeder
                 'updated_at' => '2023-10-19 03:47:27',
             ],
             [
-                'name' => 'Murid3',
+                'name' => 'Bakijan Darimin Najmudin',
                 'email' => 'murid3@gmail.com',
                 'phone' => '628' . rand(111111111, 999999999),
                 'pin' => Hash::make(rand(111111, 999999)),

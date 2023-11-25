@@ -18,21 +18,18 @@ class PesananSeeder extends Seeder
                 'guru_id' => 1,
                 'jadwal_id' => 1,
                 'status' => 1,
-                'description' => 'Okee. Berang berang makan coklat. Brangkatt...',
             ],
             [
                 'murid_id' => 2,
                 'guru_id' => 2,
                 'jadwal_id' => 2,
                 'status' => 0,
-                'description' => 'Lokasi?',
             ],
             [
                 'murid_id' => 3,
                 'guru_id' => 3,
                 'jadwal_id' => 3,
                 'status' => 1,
-                'description' => 'Okee. Berang berang makan coklat. Brangkatt...',
             ],
             [
                 'murid_id' => rand(1, 8),
